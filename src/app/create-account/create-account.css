@@ -1,0 +1,110 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #101721;
+    font-family: "DM Sans", sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+
+.message1, .message2{
+
+    font-size: 3px;
+}
+
+.left, .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left {
+    width: 60%;
+}
+
+.right {
+    width: 40%;
+    background-color: #fff;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-large, .logo-small {
+    max-width: 100%;
+    height: auto;
+}
+
+.logo-large {
+    max-width: 22%;
+}
+
+.logo-small {
+    max-width: 15%;
+    margin-bottom: 10px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #c7c7c7c7;
+    box-sizing: border-box;
+    font-family: "DM Sans", sans-serif;
+}
+
+.horizontal .radio-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 8px;
+}
+
+.button-container button {
+    background-color: #25364d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: normal;
+    width: 100%;
+    padding: 10px 20px;
+    font-family: "DM Sans", sans-serif;
+}
+
+button:hover {
+    background-color: #1f496a;
+}
+
+.link-container{
+    margin-top: 10px;
+}
+
+.link-container a {
+    color: #cc0000;
+    text-decoration: none;
+    font-size: 0.9em;
+    margin-top: 0px;
+    padding-top: 15px;
+}
+
+.link-container a:hover {
+    text-decoration: underline;
+}
