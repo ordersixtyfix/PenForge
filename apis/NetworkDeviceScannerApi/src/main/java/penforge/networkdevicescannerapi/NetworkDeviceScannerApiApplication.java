@@ -2,6 +2,10 @@
 
 package penforge.networkdevicescannerapi;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -48,32 +52,37 @@ public class NetworkDeviceScannerApiApplication {
     @Service
     public static class DeviceService {
 
+        /**
+         * Asynchronously finds network devices.
+         * @return CompletableFuture containing JSON string with devices information.
+         */
         public CompletableFuture<String> findDevices() {
             return CompletableFuture.supplyAsync(() -> {
-                StringBuilder jsonBuilder = new StringBuilder();
+                JsonObject jsonBuilder = new JsonObject();
 
                 if (!isToolInstalled("nmap")) {
                     return "Nmap is not installed.";
                 }
 
-                List<String> devices = scanDevices();
+                List<JsonObject> devices = scanDevices();
 
-                jsonBuilder.append("{");
-                jsonBuilder.append("\"devices\": [");
-                for (String device : devices) {
-                    jsonBuilder.append(device);
-                    jsonBuilder.append(",");
+                JsonArray devicesArray = new JsonArray();
+                for (JsonObject device : devices) {
+                    devicesArray.add(device);
                 }
-                if (!devices.isEmpty()) {
-                    jsonBuilder.deleteCharAt(jsonBuilder.length() - 1);
-                }
-                jsonBuilder.append("]");
-                jsonBuilder.append("}");
 
-                return jsonBuilder.toString();
+                jsonBuilder.add("devices", devicesArray);
+
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                return gson.toJson(jsonBuilder);
             });
         }
 
+        /**
+         * Checks if a tool is installed.
+         * @param toolName The name of the tool to check.
+         * @return True if the tool is installed, false otherwise.
+         */
         private boolean isToolInstalled(String toolName) {
             try {
                 Process process = new ProcessBuilder(toolName, "--version").start();
@@ -86,38 +95,26 @@ public class NetworkDeviceScannerApiApplication {
             }
         }
 
-        private List<String> scanDevices() {
-            List<String> devices = new ArrayList<>();
+        /**
+         * Scans network devices using Nmap.
+         * @return List of JSON objects containing device information.
+         */
+        private List<JsonObject> scanDevices() {
+            List<JsonObject> devices = new ArrayList<>();
             try {
-                // Scan devices using Nmap and retrieve detailed information
-                // Ping Scan ({"devices": [{"ip": "192.168.1.1", "status": "up"}]})
                 Process nmapProcess = new ProcessBuilder("nmap", "-sn", "192.168.1.1-254").start();
-                BufferedReader nmapReader = new BufferedReader(new InputStreamReader(nmapProcess.getInputStream()));
-                String line;
-                StringBuilder outputBuilder = new StringBuilder();
-                boolean startParsing = false; // Flag to indicate start of parsing
-                while ((line = nmapReader.readLine()) != null) {
-                    if (line.contains("Nmap scan report for")) {
-                        if (startParsing) {
-                            devices.add(outputBuilder.toString());
-                            outputBuilder.setLength(0); // Clear StringBuilder for new output
+                try (BufferedReader nmapReader = new BufferedReader(new InputStreamReader(nmapProcess.getInputStream()))) {
+                    String line;
+                    while ((line = nmapReader.readLine()) != null) {
+                        if (line.contains("Nmap scan report for")) {
+                            JsonObject deviceObject = new JsonObject();
+                            deviceObject.addProperty("ip", line.split(" ")[4]);
+                            deviceObject.addProperty("status", "up");
+                            devices.add(deviceObject);
                         }
-                        outputBuilder.append("{");
-                        outputBuilder.append("\"ip\": \"").append(line.split(" ")[4]).append("\", ");
-                        startParsing = true;
-                    } else if (startParsing && line.contains("Host is up")) {
-                        // If host is up, no need to parse further
-                        outputBuilder.append("\"status\": \"up\"");
-                        break;
                     }
                 }
                 nmapProcess.waitFor();
-
-                if (startParsing) {
-                    // Append closing bracket if parsing was started
-                    outputBuilder.append("}");
-                    devices.add(outputBuilder.toString());
-                }
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -125,3 +122,4 @@ public class NetworkDeviceScannerApiApplication {
         }
     }
 }
+
