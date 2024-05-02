@@ -4,8 +4,8 @@ const path = require('path');
 function createWindow() {
     // BrowserWindow oluştur
     const mainWindow = new BrowserWindow({
-        width: 900,
-        height: 600,
+        width: 1280,
+        height: 720,
         webPreferences: {
             nodeIntegration: false,  // Node.js entegrasyonunu devre dışı bırak
             contextIsolation: true,  // Context izolasyonunu etkinleştir
@@ -17,7 +17,7 @@ function createWindow() {
     mainWindow.loadFile('src/app/login/login.html');
 
     // Varsayılan menüyü kaldır
-    //Menu.setApplicationMenu(null);
+    Menu.setApplicationMenu(null);
 }
 
 app.whenReady().then(createWindow);

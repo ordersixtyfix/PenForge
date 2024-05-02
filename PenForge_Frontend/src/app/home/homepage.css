@@ -4,25 +4,27 @@ body {
     background-color: #031F30;
     color: white;
 }
-
+/* Sidebar Styles */
 .sidebar {
     width: 280px;
     height: 100vh;
     background-color: #011520;
     padding: 20px;
     box-sizing: border-box;
+    position: fixed;
+    left: 0;
 }
 
 .profile {
     text-align: center;
-    margin-bottom: 20px; /* Reduced margin between profile and navigation */
-    padding-bottom: 20px; /* Added padding below profile */
-    border-bottom: 1px solid #35515E; /* Added border below profile */
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #35515E;
 }
 
 .profile-pic {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     margin-bottom: 10px;
 }
@@ -47,21 +49,104 @@ body {
 }
 
 .navigation .nav-item + .nav-item {
-    margin-top: 10px; /* Added margin between navigation items */
+    margin-top: 10px;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: 280px;
+    padding: 20px;
+}
+
+.metrics {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.metric-item {
+    background-color: #011520;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 20%;
+}
+
+.metric-number {
+    display: block;
+    font-size: 36px;
+    color: #F76C5E;
+}
+
+.metric-label {
+    font-size: 18px;
+    color: white;
+}
+
+.charts-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-item {
+    background-color: #011520;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    margin-right: 20px;
+    margin-top: 0;
+}
+
+.chart-item:last-child {
+    margin-right: 0;
+}
+
+.chart {
+    width: 100%;
+    height: 250px;
+}
+
+.reports-section {
+    max-height: calc(100vh - 440px); /* Önceden sabit olan alanı düşürdük */
+    overflow-y: auto; /* Eğer içerik ekran boyutunu aşarsa dikey kaydırma çubuğu görünsün */
+    background-color: #011520;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+
+.reports-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.reports-list li {
+    padding: 10px;
+    border-bottom: 1px solid #35515E;
+    color: white;
 }
 
 footer {
     text-align: center;
     padding: 10px;
-    position: absolute;
+    position: fixed;
     bottom: 0;
+    left: 0;
     width: 250px;
-}
-
-.footer-links {
-    margin-bottom: 20px; /* Added space below links */
+    background-color: #011520;
 }
 
 .footer-logo-pic {
-    width: 150px;
+    width: 120px;
+    margin: auto;
+    display: block;
+}
+
+.chart-item h5 {
+    margin-top: 0;
+}
+
+.reports-section h5 {
+    margin-top: 0;
 }

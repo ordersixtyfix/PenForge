@@ -9,37 +9,98 @@
 <body>
 <div class="sidebar">
     <div class="profile">
-        <img src="/src/assets/icons/bobfaruk.png" alt="Profil Resmi" class="profile-pic">
-        <p>Employee Name</p>
+        <img src="../../assets/icons/bobfaruk.png" alt="Profil Resmi" class="profile-pic">
+        <p>Merhaba, <span id="user-name">Employee Name</span></p>
     </div>
     <nav class="navigation">
         <a href="#" class="nav-item">
-            <img src="/src/assets/icons/icons8-test-50.png" alt="" class="nav-icon">
+            <img src="../../assets/icons/dash.png" alt="" class="nav-icon">
+            Gösterge Paneli
+        </a>
+        <a href="#" class="nav-item">
+            <img src="../../assets/icons/testrail.png" alt="" class="nav-icon">
             Test Paneli
         </a>
         <a href="#" class="nav-item">
-            <img src="/src/assets/icons/icons8-radar-50.png" alt="" class="nav-icon">
+            <img src="../../assets/icons/radar.png" alt="" class="nav-icon">
             Test Geçmişi
         </a>
         <a href="#" class="nav-item">
-            <img src="/src/assets/icons/icons8-aim-50.png" alt="" class="nav-icon">
+            <img src="../../assets/icons/aim.png" alt="" class="nav-icon">
             Aktif Hedefler
         </a>
         <a href="#" class="nav-item">
-            <img src="/src/assets/icons/icons8-slider-50.png" alt="" class="nav-icon">
+            <img src="../../assets/icons/slider.png" alt="" class="nav-icon">
             Ayarlar
         </a>
-        <a href="#" class="nav-item">
-            <img src="/src/assets/icons/icons8-log-out-50.png" alt="" class="nav-icon">
+        <a href="#" id="logoutButton" class="nav-item">
+            <img src="../../assets/icons/logout.png" alt="" class="nav-icon">
             Çıkış
         </a>
     </nav>
-
 </div>
+
+<div class="main-content">
+    <div class="metrics">
+        <div class="metric-item">
+            <span class="metric-number">12</span>
+            <span class="metric-label">Kritik Tehditler</span>
+        </div>
+        <div class="metric-item">
+            <span class="metric-number">26</span>
+            <span class="metric-label">Yüksek Tehditler</span>
+        </div>
+        <div class="metric-item">
+            <span class="metric-number">32</span>
+            <span class="metric-label">Orta Tehditler</span>
+        </div>
+        <div class="metric-item">
+            <span class="metric-number">30</span>
+            <span class="metric-label">Düşük Tehditler</span>
+        </div>
+    </div>
+    <div class="charts-section">
+        <div class="chart-item">
+            <h5>Vulnerability History</h5>
+            <div class="chart" id="vulnerability-history-chart">
+                <canvas id="vulnerabilityHistoryChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-item">
+            <h5>Vulnerability by Category</h5>
+            <div class="chart" id="vulnerability-category-chart">
+                <canvas id="vulnerabilityCategoryChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="reports-section">
+        <h5>Geçmiş Taramalar</h5>
+        <table class="reports-table">
+            <thead>
+            <tr>
+                <th>Tarih</th>
+                <th>Durum</th>
+                <th>Detay</th>
+            </tr>
+            </thead>
+            <tbody id="report-table-body">
+            <!-- Dinamik olarak oluşturulacak satırlar buraya eklenecek -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <footer>
     <div class="footer-logo">
-        <img src="/src/assets/logo/PenForge_Logo_Light.png" alt="PenForge Logo" class="footer-logo-pic">
+        <img src="../../assets/logo/PenForge_Logo_Light.png" alt="PenForge Logo" class="footer-logo-pic">
     </div>
 </footer>
+
+<script src="logout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="chart.js"></script>
+
+
+
 </body>
 </html>

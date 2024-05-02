@@ -34,7 +34,7 @@ function onLogin() {
             console.log('Başarılı:', data);
             if (data.code === 200) {
                 console.log("Giriş başarılı");
-                window.location.href = 'success.html'; // Başarı durumunda yönlendirme
+                window.location.href = '../../app/home/homepage.html'; // Başarı durumunda yönlendirme
             } else {
                 console.log("Giriş başarısız");
             }
