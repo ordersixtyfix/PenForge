@@ -97,6 +97,14 @@ public class WebSecurityConfig {
                         .permitAll()
 
                 )
+                .logout(logout -> logout
+                        .logoutUrl("/api/v1/logout")  // Çıkış yapmak için kullanılacak URL
+                        .logoutSuccessUrl("/login")  // Çıkış başarılı olduğunda yönlendirilecek URL
+                        .deleteCookies("JSESSIONID")  // Çıkış sırasında silinecek cookies
+                        .clearAuthentication(true)  // Oturum bilgilerini temizle
+                        .invalidateHttpSession(true)  // HTTP session'ı geçersiz kıl
+                )
+
                 .build();
 
 
