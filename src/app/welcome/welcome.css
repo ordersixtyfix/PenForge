@@ -1,0 +1,199 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+.tools-panel {
+    width: 20%; /* Tools panel genişliği */
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+.tools-panel-hidden {
+    width: 0%; /* Tools panel genişliği */
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    visibility: hidden;
+}
+
+.tools-boxes {
+    display: flex;
+    flex-direction: row;
+}
+
+.tools-red-box {
+    width: 30%;
+    padding: 10px;
+    margin: 5px;
+    background-color: red;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.tools-yellow-box {
+    width: 30%;
+    padding: 10px;
+    margin: 5px;
+    background-color: yellow;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.tools-green-box {
+    width: 30%;
+    padding: 10px;
+    margin: 5px;
+    background-color: limegreen;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.tools-all-box {
+    width: 30%;
+    padding: 10px;
+    margin: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+/* Diğer stillendirme özellikleri */
+
+
+
+
+
+.draggable-1 {
+    width: 90%;
+    padding: 10px;
+    margin: 5px;
+    background-color: limegreen;
+    border: 2px solid #ccc;
+    cursor: pointer;
+}
+.draggable-2 {
+    width: 90%;
+    padding: 10px;
+    margin: 5px;
+    background-color: yellow;
+    border: 2px solid #ccc;
+    cursor: pointer;
+}
+.draggable-3 {
+    width: 90%;
+    padding: 10px;
+    margin: 5px;
+    background-color: #cc0000;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    color: white;
+
+}
+
+.top-right-panel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-left: 1px solid #ccc;
+    flex: 1;
+}
+
+.categories-panel {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f9f9f9;
+    padding: 10px; /* Daha makul bir padding değeri */
+    border-left: 1px solid #ccc;
+    min-height: 80vh;
+    flex-wrap: wrap;
+    width: 100%;
+    flex: 1;
+}
+.category {
+    padding: 20px;
+    background-color: #f9f9f9; /* Kırmızı arkaplan */
+    text-align: center;
+    border-left: 1px solid #ccc; /* Her kategori arasına dikey bir çizgi ekler */
+    width: 29%;
+}
+
+.attack-templates-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Merkezde hizalama */
+    background-color: #e9e9e9;
+    padding: 10px; /* Daha makul bir padding değeri */
+    margin-top: auto; /* Diğer içeriklerden sonra tüm boşluğu doldur */
+    flex: 1; /* Template'ler için ayrılan alan */
+    overflow-y: auto; /* İçerik fazla olduğunda kaydırma çubuğu gösterilir */
+}
+
+.template {
+    width: 90%;
+    padding: 10px;
+    margin: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+
+.tooltip {
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+
+    z-index: 0;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #d3d3d3;
+    padding: 5px;
+    z-index: 1000;
+    display: none;
+    color: black;
+    top: 100%; /* Açıklama metnini aracın hemen altına yerleştirir */
+    left: 0; /* Sol tarafa hizalar */
+    white-space: nowrap; /* Metni tek satırda tutar */
+}
+
+
+.draggable-1:hover .tooltip,
+.draggable-2:hover .tooltip,
+.draggable-3:hover .tooltip {
+    display: block;
+}
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

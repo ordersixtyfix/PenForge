@@ -1,23 +1,20 @@
-const { app, BrowserWindow, Menu } = require('electron');
-const path = require('path');
+const { app, BrowserWindow, ipcMain } = require('electron');
+let mainWindow;
 
 function createWindow() {
-    // BrowserWindow oluştur
-    const mainWindow = new BrowserWindow({
-        width: 900,
+    mainWindow = new BrowserWindow({
+        width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: false,  // Node.js entegrasyonunu devre dışı bırak
-            contextIsolation: true,  // Context izolasyonunu etkinleştir
-            preload: path.join(__dirname, 'preload.js')  // Güvenli bir şekilde Node.js ve DOM API'leri arasında köprü oluştur
+            preload: `${__dirname}/preload.js` // Yolu projenize göre ayarlayın
         }
     });
 
-    // mainWindow yüklemek için login.html dosyasını belirtin
-    mainWindow.loadFile('src/app/login/login.html');
+    mainWindow.loadFile('src/app/login/login.html'); // Login sayfası başlangıçta yükleniyor
 
-    // Varsayılan menüyü kaldır
-    //Menu.setApplicationMenu(null);
+    ipcMain.on('login-success', () => {
+        mainWindow.loadFile('src/app/welcome/welcome.html'); // IPC mesajı ile welcome.html yükleniyor
+    });
 }
 
 app.whenReady().then(createWindow);
