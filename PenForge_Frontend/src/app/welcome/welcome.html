@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <link rel="stylesheet" href="welcome.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="../../assets/logo/PenForge_Logo_Light.png" alt="Logo">
+            <span class="logo-text">Saldırı Şablonu</span>
+        </div>
+        <div class="spacer"></div>
+        <div class="back-button">
+            <a href="#">
+                <img src="../../assets/icons/back.png" alt="Geri Dön">
+                <span>Geri Dön</span>
+            </a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tools-panel">
+            <div class="tools-boxes">
+                <div class="tools-all-box"></div>
+                <div class="tools-green-box"></div>
+                <div class="tools-yellow-box"></div>
+                <div class="tools-red-box"></div>
+            </div>
+            <!-- Tools will be dynamically added here -->
+        </div>
+
+        <div class="top-right-panel">
+            <div class="categories-panel">
+                <div class="category" data-category-id="recon" style="border-bottom: 2px solid #3a8d4a;">
+                    <img src="../../assets/icons/recon.png" alt="Reconnaissance Icon" class="category-icon">
+                    Reconnaissance
+                </div>
+                <div class="category" data-category-id="discovery" style="border-bottom: 2px solid #e0b830;">
+                    <img src="../../assets/icons/discovery.png" alt="Discovery Icon" class="category-icon">
+                    Enumeration
+                </div>
+                <div class="category" data-category-id="exploitation" style="border-bottom: 2px solid #9e1f45;">
+                    <img src="../../assets/icons/exploit.png" alt="Exploitation Icon" class="category-icon">
+                    Exploitation
+                </div>
+            </div>
+            <div class="attack-templates-panel">
+                <!-- Templates will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="welcome.js"></script>
+</body>
+
+</html>
