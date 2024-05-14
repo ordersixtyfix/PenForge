@@ -155,9 +155,9 @@ class DragAndDropManager {
 
     setupToolVisibilityToggles() {
         const filterButtons = {
-            green: document.querySelector(".tools-red-box"),
+            green: document.querySelector(".tools-green-box"),
             yellow: document.querySelector(".tools-yellow-box"),
-            red: document.querySelector(".tools-green-box"),
+            red: document.querySelector(".tools-red-box"),
             all: document.querySelector(".tools-all-box"),
         };
 
@@ -176,7 +176,9 @@ class DragAndDropManager {
             } else {
                 [COLORS.GREEN, COLORS.YELLOW, COLORS.RED].forEach((c) => {
                     tools[c].forEach((tool) => {
-                        tool.style.display = c === color ? "block" : "none";
+                        if (!tool.closest('.category')) {
+                            tool.style.display = c === color ? "block" : "none";
+                        }
                     });
                 });
             }
