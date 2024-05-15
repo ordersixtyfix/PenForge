@@ -14,7 +14,7 @@ function createWindow() {
     });
 
     // mainWindow yüklemek için login.html dosyasını belirtin
-    mainWindow.loadFile('src/app/login/login.html');
+    mainWindow.loadFile('src/app/welcome/welcome.html');
 
     // Varsayılan menüyü kaldır
     Menu.setApplicationMenu(null);

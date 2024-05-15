@@ -71,7 +71,8 @@ class DragAndDropManager {
         toolDiv.setAttribute('draggable', true);
         toolDiv.addEventListener('dragstart', this.handleDragStart.bind(this));
         toolDiv.addEventListener('dragend', this.handleDragEnd);
-        toolDiv.addEventListener('click', this.handleItemClick.bind(this, toolDiv));
+        toolDiv.addEventListener('click', this.handleItemLeftClick.bind(this, toolDiv));
+        toolDiv.addEventListener('contextmenu', this.handleItemRightClick.bind(this, toolDiv));
         return toolDiv;
     }
 
@@ -97,7 +98,60 @@ class DragAndDropManager {
         event.target.style.opacity = "";
     }
 
-    handleItemClick(item) {
+    handleItemLeftClick(item, event) {
+        event.preventDefault();
+    
+        const parentCategory = item.parentElement;
+    
+        if (parentCategory.classList.contains("category")) {
+            const toolInput = item.querySelector("input");
+    
+            if (toolInput) {
+                toolInput.focus();
+                return;
+            }
+    
+            const container = document.createElement("div");
+            container.style.display = "flex";
+            container.style.flexDirection = "column";
+        
+            const input = document.createElement("input");
+            input.type = "text";
+    
+            const spanContainer = document.createElement("div");
+            spanContainer.style.display = "flex";
+            spanContainer.style.flexWrap = "wrap";
+            spanContainer.style.gap = "5px";
+    
+            item.appendChild(container);
+            container.appendChild(input);
+            container.appendChild(spanContainer);
+    
+            item.addEventListener("click", () => {
+                input.style.display = "inline-block";
+                input.focus();
+            });
+    
+            input.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    const value = input.value.trim();
+                    if (value !== "") {
+                        const span = document.createElement("span");
+                        span.innerText = value;
+                        span.style.padding = "5px";
+                        span.style.backgroundColor = "#031F30";
+                        span.style.borderRadius = "2px";
+                        spanContainer.appendChild(span);
+                        input.value = "";
+                    }
+                }
+            });
+        }
+    }
+    
+    handleItemRightClick(item, event) {
+        event.preventDefault();
+
         const parentCategory = item.parentElement;
         if (parentCategory.classList.contains("category")) {
             const toolsPanel = document.querySelector(".tools-panel");
@@ -130,6 +184,8 @@ class DragAndDropManager {
                     if (templateIndex !== -1) {
                         this.templates[templateIndex].tools.push(this.dragged.textContent.trim());
                     }
+
+                    // draggedId
 
                     setTimeout(() => {
                         category.classList.remove("animate-tool-drop");
@@ -229,12 +285,7 @@ class DragAndDropManager {
     }
 
     handleTemplateClick(template) {
-        const categories = document.querySelectorAll(".category");
-        categories.forEach(category => {
-            while (category.firstChild) {
-                category.removeChild(category.firstChild);
-            }
-        });
+        this.cleanCategories();
 
         template.tools.forEach(toolName => {
             const tool = this.tools.find(tool => tool.name === toolName);
@@ -242,11 +293,35 @@ class DragAndDropManager {
                 const toolDiv = this.createToolElement(tool);
                 const category = document.querySelector(`[data-category-id="${COLOR_MEANINGS[tool.color]}"]`);
                 category.appendChild(toolDiv);
+
+                // toolName
             }
         });
     }
+
+    cleanCategories() {
+        const categories = document.querySelectorAll(".category");
+        const toolsPanel = document.querySelector(".tools-panel");
+
+        categories.forEach(category => {
+            const children = category.children;
+            for (let i = children.length - 1; i >= 0; i--) {
+                const child = children[i];
+                if (child.tagName !== "IMG" && child.tagName !== "SPAN") {
+                    child.parentNode.removeChild(child);
+                    toolsPanel.appendChild(child);
+                }
+            }
+        });
+    }
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    new DragAndDropManager();
+    const manager = new DragAndDropManager();
+
+    document.getElementById("clean-button-link").addEventListener("click", function (event) {
+        event.preventDefault();
+        manager.cleanCategories();
+    });
 });
