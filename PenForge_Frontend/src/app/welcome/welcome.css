@@ -1,3 +1,21 @@
+@keyframes toolAppear {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.animate-tool-drop {
+    animation: toolAppear 0.2s ease-in-out;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -9,7 +27,6 @@ body {
 }
 
 input[type="text"] {
-    border: 2px solid #031F30;
     border-radius: 8px;
     padding: 10px;
     margin-top: 5px;
@@ -18,12 +35,14 @@ input[type="text"] {
     box-sizing: border-box;
     font-size: 16px;
     color: #FFFFFF;
-    background-image: linear-gradient(to right, #011520 , #031F30);
+    background-color: #34495E;
     outline: none;
+    border: none;
+    animation: toolAppear 0.5s ease-in-out;
 }
 
 input[type="text"]:focus {
-    border-color: #0F3A54;
+    background-color: #0F3A54;
 }
 
 ::-webkit-scrollbar {
@@ -85,6 +104,7 @@ input[type="text"]:focus {
     flex-direction: column;
     align-items: center;
     padding: 5px;
+    animation: toolAppear 0.5s ease-in-out;
 }
 
 .tools-boxes {
@@ -150,6 +170,7 @@ input[type="text"]:focus {
     flex-wrap: nowrap;
     overflow-y: auto;
     border-radius: 8px;
+    animation: toolAppear 0.8s ease-in-out;
 }
 
 .clean-button a {
@@ -160,12 +181,12 @@ input[type="text"]:focus {
 }
 
 .clean-button img {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
 }
 
 .category {
-    margin-top: 20px;
     padding: 10px;
     background-color: #2C3E50;
     text-align: center;
@@ -176,7 +197,7 @@ input[type="text"]:focus {
 .category-icon {
     width: 24px;
     height: 24px;
-    margin-right: 8px;
+    margin-right: 5px;
     vertical-align: middle;
 }
 
@@ -198,6 +219,7 @@ input[type="text"]:focus {
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
+    animation: toolAppear 1s ease-in-out;
 }
 
 .tooltip .tooltiptext {
@@ -226,22 +248,4 @@ input[type="text"]:focus {
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
-}
-
-@keyframes toolAppear {
-    0% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 0.5;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-.animate-tool-drop {
-    animation: toolAppear 0.5s ease-in-out;
 }

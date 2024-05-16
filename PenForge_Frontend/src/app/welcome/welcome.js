@@ -100,47 +100,60 @@ class DragAndDropManager {
 
     handleItemLeftClick(item, event) {
         event.preventDefault();
-    
+
         const parentCategory = item.parentElement;
-    
+
         if (parentCategory.classList.contains("category")) {
             const toolInput = item.querySelector("input");
-    
+
             if (toolInput) {
                 toolInput.focus();
                 return;
             }
-    
+
             const container = document.createElement("div");
-            container.style.display = "flex";
-            container.style.flexDirection = "column";
-        
+
             const input = document.createElement("input");
             input.type = "text";
-    
+
             const spanContainer = document.createElement("div");
+            spanContainer.style.marginTop = "5px";
             spanContainer.style.display = "flex";
+            spanContainer.style.alignItems = "center";
+            spanContainer.style.justifyContent = "space-around";
             spanContainer.style.flexWrap = "wrap";
-            spanContainer.style.gap = "5px";
-    
+
             item.appendChild(container);
             container.appendChild(input);
             container.appendChild(spanContainer);
-    
+
             item.addEventListener("click", () => {
                 input.style.display = "inline-block";
                 input.focus();
             });
-    
+
             input.addEventListener("keypress", (e) => {
                 if (e.key === "Enter") {
                     const value = input.value.trim();
                     if (value !== "") {
                         const span = document.createElement("span");
-                        span.innerText = value;
+                        span.style.margin = "5px";
                         span.style.padding = "5px";
-                        span.style.backgroundColor = "#031F30";
-                        span.style.borderRadius = "2px";
+                        span.style.backgroundColor = "#34495E";
+                        span.style.borderRadius = "8px";
+                        span.style.animation = "toolAppear 0.2s ease-in-out";
+
+                        const img = document.createElement("img");
+                        img.src = "../../assets/icons/plus.png";
+                        img.width = 24;
+                        img.height = 24;
+                        img.style.marginRight = "5px";
+                        img.style.verticalAlign = "middle";
+
+                        const textNode = document.createTextNode(value);
+
+                        span.appendChild(img);
+                        span.appendChild(textNode);
                         spanContainer.appendChild(span);
                         input.value = "";
                     }
@@ -148,7 +161,7 @@ class DragAndDropManager {
             });
         }
     }
-    
+
     handleItemRightClick(item, event) {
         event.preventDefault();
 
@@ -278,14 +291,28 @@ class DragAndDropManager {
         this.templates.forEach((template) => {
             const templateDiv = document.createElement("div");
             templateDiv.classList.add("template");
-            templateDiv.textContent = template.name;
-            templateDiv.addEventListener("click", () => this.handleTemplateClick(template));
+
+            const img = document.createElement("img");
+            img.src = "../../assets/icons/click.png";
+            img.width = 24;
+            img.height = 24;
+            img.style.marginRight = "5px";
+            templateDiv.appendChild(img);
+
+            const templateName = document.createElement("span");
+            templateName.textContent = template.name;
+            templateDiv.appendChild(templateName);
+
+            templateDiv.addEventListener("click", () => this.handleTemplateClick(template, templateDiv));
+
             templatesPanel.appendChild(templateDiv);
         });
     }
 
-    handleTemplateClick(template) {
+
+    handleTemplateClick(template, templateDiv) {
         this.cleanCategories();
+        templateDiv.classList.add("animate-tool-drop");
 
         template.tools.forEach(toolName => {
             const tool = this.tools.find(tool => tool.name === toolName);
@@ -297,6 +324,10 @@ class DragAndDropManager {
                 // toolName
             }
         });
+
+        setTimeout(() => {
+            templateDiv.classList.remove("animate-tool-drop");
+        }, 1000);
     }
 
     cleanCategories() {
