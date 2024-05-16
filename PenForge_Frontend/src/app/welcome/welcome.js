@@ -333,19 +333,23 @@ class DragAndDropManager {
     cleanCategories() {
         const categories = document.querySelectorAll(".category");
         const toolsPanel = document.querySelector(".tools-panel");
-
+    
         categories.forEach(category => {
             const children = category.children;
             for (let i = children.length - 1; i >= 0; i--) {
                 const child = children[i];
                 if (child.tagName !== "IMG" && child.tagName !== "SPAN") {
                     child.parentNode.removeChild(child);
-                    toolsPanel.appendChild(child);
+                    
+                    const text = child.textContent.trim();
+                    
+                    if (!toolsPanel.textContent.includes(text)) {
+                        toolsPanel.appendChild(child);
+                    }
                 }
             }
         });
-    }
-
+    }    
 }
 
 document.addEventListener("DOMContentLoaded", () => {

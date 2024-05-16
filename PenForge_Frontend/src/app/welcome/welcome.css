@@ -219,7 +219,6 @@ input[type="text"]:focus {
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
-    animation: toolAppear 1s ease-in-out;
 }
 
 .tooltip .tooltiptext {
