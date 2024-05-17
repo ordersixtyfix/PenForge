@@ -30,5 +30,4 @@ public class User extends Base {
 
     private AppUserLevel appUserLevel;
 
-
 }

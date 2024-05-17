@@ -15,11 +15,9 @@ public class UserDto extends Base {
 
 
     private String firstName;
-
     private String lastName;
     private String email;
     private AppUserRole appUserRole;
-
     private AppUserLevel appUserLevel;
 
 
