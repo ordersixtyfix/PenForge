@@ -13,6 +13,8 @@ const COLOR_MEANINGS = {
 class DragAndDropManager {
     constructor() {
         this.dragged = null;
+        this.toolVisibility = "all";
+
         this.tools = [
             { id: 'Nmap', name: 'Nmap', tooltip: 'Nmap is a network scanning tool.', color: COLORS.GREEN, position: 0 },
             { id: 'Masscan', name: 'Masscan', tooltip: 'Masscan is a fast password cracking tool.', color: COLORS.GREEN, position: 1 },
@@ -47,7 +49,7 @@ class DragAndDropManager {
         ];
         this.setupDraggableElements();
         this.setupDropZones();
-        this.setupToolVisibilityToggles();
+        this.setupToolVisibilityToggles(this.toolVisibility);
         this.setupTooltips();
         this.renderTemplates();
     }
@@ -195,9 +197,7 @@ class DragAndDropManager {
                 input.style.display = "none";
             }
 
-            setTimeout(() => {
-                this.setupToolVisibilityToggles(true);
-            }, 50);
+            this.setupToolVisibilityToggles(this.toolVisibility);
         }
     }
 
@@ -267,7 +267,7 @@ class DragAndDropManager {
                 : COLORS.RED;
     }
 
-    setupToolVisibilityToggles(showAll = false) {
+    setupToolVisibilityToggles(color) {
         const filterButtons = {
             green: document.querySelector(".tools-green-box"),
             yellow: document.querySelector(".tools-yellow-box"),
@@ -282,30 +282,26 @@ class DragAndDropManager {
             all: document.querySelectorAll(".draggable-1, .draggable-2, .draggable-3"),
         };
 
-        const displayTools = (color) => {
-            if (color === "all") {
-                tools.all.forEach((tool) => {
-                    tool.style.display = "block";
+        if (color === "all") {
+            tools.all.forEach((tool) => {
+                tool.style.display = "block";
+            });
+        } else {
+            [COLORS.GREEN, COLORS.YELLOW, COLORS.RED].forEach((c) => {
+                tools[c].forEach((tool) => {
+                    if (!tool.closest('.category')) {
+                        tool.style.display = c === color ? "block" : "none";
+                    }
                 });
-            } else {
-                [COLORS.GREEN, COLORS.YELLOW, COLORS.RED].forEach((c) => {
-                    tools[c].forEach((tool) => {
-                        if (!tool.closest('.category')) {
-                            tool.style.display = c === color ? "block" : "none";
-                        }
-                    });
-                });
-            }
-        };
-
-        filterButtons.green.addEventListener("click", () => displayTools(COLORS.GREEN));
-        filterButtons.yellow.addEventListener("click", () => displayTools(COLORS.YELLOW));
-        filterButtons.red.addEventListener("click", () => displayTools(COLORS.RED));
-        filterButtons.all.addEventListener("click", () => displayTools("all"));
-
-        if (showAll) {
-            displayTools("all");
+            });
         }
+
+        this.toolVisibility = color;
+
+        filterButtons.green.addEventListener("click", () => this.setupToolVisibilityToggles(COLORS.GREEN));
+        filterButtons.yellow.addEventListener("click", () => this.setupToolVisibilityToggles(COLORS.YELLOW));
+        filterButtons.red.addEventListener("click", () => this.setupToolVisibilityToggles(COLORS.RED));
+        filterButtons.all.addEventListener("click", () => this.setupToolVisibilityToggles("all"));
     }
 
     setupTooltips() {
@@ -425,9 +421,7 @@ class DragAndDropManager {
             }
         });
 
-        setTimeout(() => {
-            this.setupToolVisibilityToggles(true);
-        }, 50);
+        this.setupToolVisibilityToggles(this.toolVisibility);
     }
 }
 
