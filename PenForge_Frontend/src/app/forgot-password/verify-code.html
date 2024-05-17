@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yeni Şifre Belirle</title>
-    <link rel="stylesheet" href="reset-password.css">
+    <title>Kodu Doğrula</title>
+    <link rel="stylesheet" href="verify-code.css">
 </head>
 <body>
 <div class="container">
@@ -14,21 +14,21 @@
     <div class="right">
         <img src="../../assets/logo/IMG_0024.PNG" alt="Additional Logo" class="logo-right">
         <div class="form-container">
-            <h2>Yeni Şifrenizi Belirleyin</h2>
-            <form action="#" id="newPasswordForm">
+            <h2>Kodu Doğrula</h2>
+            <form action="#" id="codeForm">
                 <div class="input-group">
-                    <input type="password" id="newPassword" name="newPassword" placeholder="Yeni Şifre" required>
+                    <input type="text" id="code" name="code" placeholder="Gelen Kodu Girin" required>
                 </div>
-                <div class="input-group">
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Yeni Şifreyi Onayla" required>
+                <div class="timer-container">
+                    <span>Time Remaining: <span id="time">60</span></span>
                 </div>
                 <div class="button-container">
-                    <button type="button" id="resetPasswordButton">Şifreyi Sıfırla</button>
+                    <button type="button" id="verifyCodeButton">SUBMIT</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<script src="reset-password.js"></script>
+<script src="verify-code.js"></script>
 </body>
 </html>

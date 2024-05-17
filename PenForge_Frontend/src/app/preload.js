@@ -1,6 +1,8 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    sendLoginData: (data) => ipcRenderer.send('login-data', data),
-    receiveLoginResponse: (func) => ipcRenderer.on('login-response', (event, ...args) => func(...args))
+    sendForgotPasswordRequest: (data) => ipcRenderer.invoke('forgot-password-request', data),
+    sendValidateTokenRequest: (data) => ipcRenderer.invoke('validate-token-request', data),
+    sendResetPasswordRequest: (data) => ipcRenderer.invoke('reset-password-request', data),
+    logout: () => ipcRenderer.invoke('logout')
 });
