@@ -55,7 +55,7 @@ class DragAndDropManager {
     }
 
     setupDraggableElements() {
-        const toolsPanel = document.querySelector('.tools-panel');
+        const toolsPanel = document.querySelector('.left-panel');
 
         this.tools.forEach(tool => {
             const toolDiv = this.createToolElement(tool);
@@ -107,7 +107,7 @@ class DragAndDropManager {
 
         const parentCategory = item.parentElement;
 
-        if (parentCategory.classList.contains("category")) {
+        if (parentCategory.classList.contains("top-box")) {
             let toolInput = item.querySelector("input");
 
             if (toolInput) {
@@ -124,7 +124,7 @@ class DragAndDropManager {
 
             const spanContainer = document.createElement("div");
 
-            spanContainer.style.marginTop = "5px";
+            spanContainer.style.marginTop = "6px";
             spanContainer.style.display = "flex";
             spanContainer.style.alignItems = "center";
             spanContainer.style.justifyContent = "space-around";
@@ -147,8 +147,8 @@ class DragAndDropManager {
                     if (value !== "") {
                         const span = document.createElement("span");
 
-                        span.style.margin = "5px";
-                        span.style.padding = "5px";
+                        span.style.margin = "6px";
+                        span.style.padding = "8px";
                         span.style.backgroundColor = "#34495E";
                         span.style.borderRadius = "8px";
                         span.style.animation = "toolAppear 0.2s ease-in-out";
@@ -158,7 +158,7 @@ class DragAndDropManager {
                         img.src = "../../assets/icons/plus.png";
                         img.width = 24;
                         img.height = 24;
-                        img.style.marginRight = "5px";
+                        img.style.marginRight = "6px";
                         img.style.verticalAlign = "middle";
 
                         const textNode = document.createTextNode(value);
@@ -178,8 +178,8 @@ class DragAndDropManager {
 
         const parentCategory = item.parentElement;
 
-        if (parentCategory.classList.contains("category")) {
-            const toolsPanel = document.querySelector(".tools-panel");
+        if (parentCategory.classList.contains("top-box")) {
+            const toolsPanel = document.querySelector(".left-panel");
             const tool = this.tools.find(t => t.id === item.id);
 
             const img = item.querySelector("img");
@@ -202,7 +202,7 @@ class DragAndDropManager {
     }
 
     setupDropZones() {
-        const categories = document.querySelectorAll(".category");
+        const categories = document.querySelectorAll(".top-box");
 
         categories.forEach((category) => {
             category.addEventListener("dragover", this.handleDragOver);
@@ -230,7 +230,8 @@ class DragAndDropManager {
                         img.src = "../../assets/icons/click.png";
                         img.width = 24;
                         img.height = 24;
-                        img.style.marginRight = "5px";
+                        img.style.marginRight = "6px";
+                        img.style.verticalAlign = "middle";
 
                         this.dragged.insertBefore(img, this.dragged.firstChild);
                     }
@@ -289,7 +290,7 @@ class DragAndDropManager {
         } else {
             [COLORS.GREEN, COLORS.YELLOW, COLORS.RED].forEach((c) => {
                 tools[c].forEach((tool) => {
-                    if (!tool.closest('.category')) {
+                    if (!tool.closest('.top-box')) {
                         tool.style.display = c === color ? "block" : "none";
                     }
                 });
@@ -335,19 +336,20 @@ class DragAndDropManager {
     }
 
     renderTemplates() {
-        const templatesPanel = document.querySelector(".attack-templates-panel");
+        const templatesPanel = document.querySelector(".bottom-box-container");
 
         this.templates.forEach((template) => {
             const templateDiv = document.createElement("div");
 
-            templateDiv.classList.add("template");
+            templateDiv.classList.add("bottom-box");
 
             const img = document.createElement("img");
 
             img.src = "../../assets/icons/click.png";
             img.width = 24;
             img.height = 24;
-            img.style.marginRight = "5px";
+            img.style.marginRight = "6px";
+            img.style.verticalAlign = "middle";
             templateDiv.appendChild(img);
 
             const templateName = document.createElement("span");
@@ -378,7 +380,7 @@ class DragAndDropManager {
                     img.src = "../../assets/icons/click.png";
                     img.width = 24;
                     img.height = 24;
-                    img.style.marginRight = "5px";
+                    img.style.marginRight = "6px";
 
                     toolDiv.insertBefore(img, toolDiv.firstChild);
                 }
@@ -394,8 +396,8 @@ class DragAndDropManager {
     }
 
     cleanCategories() {
-        const categories = document.querySelectorAll(".category");
-        const toolsPanel = document.querySelector(".tools-panel");
+        const categories = document.querySelectorAll(".top-box");
+        const toolsPanel = document.querySelector(".left-panel");
 
         categories.forEach(category => {
             const children = category.children;
