@@ -30,5 +30,7 @@ public class User extends Base {
 
     private AppUserLevel appUserLevel;
 
+    private String resetToken;
+
 
 }
