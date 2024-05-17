@@ -1,20 +1,20 @@
-document.getElementById('resetPasswordButton').addEventListener('click', function () {
-    var newPassword = document.getElementById('newPassword').value;
-    var confirmPassword = document.getElementById('confirmPassword').value;
+document.getElementById('resetPasswordButton').addEventListener('click', async function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
 
-    // Yeni şifre veya onay şifresi alanlarının boş olup olmadığını kontrol et
-    if (!newPassword || !confirmPassword) {
-        alert('Lütfen bir şifre giriniz.');
-        return;
-    }
-
-    // Girilen şifrelerin birbiriyle uyuşup uyuşmadığını kontrol et
     if (newPassword !== confirmPassword) {
-        alert('Şifreler uyuşmuyor. Lütfen tekrar deneyin.');
+        alert("Şifreler eşleşmiyor");
         return;
     }
 
-    // Her iki kontrolü geçerse şifrenin başarıyla güncellendiğini bildir
-    alert('Şifreniz başarıyla güncellendi!');
-    // Burada şifre sıfırlama işlemi sunucuya gönderilecek
+    const response = await window.electronAPI.sendResetPasswordRequest(`token=${token}&newPassword=${newPassword}`);
+
+    if (response.code === 200) {
+        alert("Şifre başarıyla sıfırlandı.");
+        window.location.href = '../login/login.html';
+    } else {
+        alert(response.data);
+    }
 });

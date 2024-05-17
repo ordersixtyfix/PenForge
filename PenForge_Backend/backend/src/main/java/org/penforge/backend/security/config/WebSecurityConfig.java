@@ -43,12 +43,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    private final ObjectMapper objectMapper;
     private final UserService userService;
+    private final LoginSuccessHandler loginSuccessHandler;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userService);
         provider.setPasswordEncoder(bCryptPasswordEncoder);
@@ -56,7 +56,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    AuthenticationManager getAuthenticationManager(AuthenticationConfiguration configuration) throws Exception {
+    AuthenticationManager getAuthenticationManager(AuthenticationConfiguration configuration) throws Exception{
         return configuration.getAuthenticationManager();
     }
 
@@ -64,7 +64,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         configuration.setAllowCredentials(true);
@@ -81,26 +81,35 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/registration")).permitAll();
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/login")).permitAll();
-                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/pentest")).permitAll();
+                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/pentest")).authenticated();
+                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forgot-password/**")).permitAll();
+                    auth.anyRequest().authenticated();
 
 
 
 
                 })
-                .formLogin(form -> form
-                        .successHandler(authenticationSuccessHandler())
-                        .failureHandler(authenticationFailureHandler())
-                )
-
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v*/registration/**")))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/login")))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/forgot-password/**")))
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
+                .formLogin(form->form
 
+                        .successHandler(loginSuccessHandler)
+                        .permitAll()
+
+                )
                 .build();
 
 
     }
+
+
+
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
+
 
         return new SimpleUrlAuthenticationSuccessHandler() {
             @Override
