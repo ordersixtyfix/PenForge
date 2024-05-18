@@ -45,18 +45,6 @@ class DragAndDropManager {
             {
                 name: "Test Attack Template 3",
                 tools: ['Amass', 'Nikto', 'Hydra', 'WPScan', 'Mimikatz']
-            },
-            {
-                name: "Test Attack Template",
-                tools: ['Nmap', 'Nikto', 'Hydra']
-            },
-            {
-                name: "Test Attack Template 2",
-                tools: ['Nmap', 'Nikto', 'Hydra', 'WPScan', 'Mimikatz']
-            },
-            {
-                name: "Test Attack Template 3",
-                tools: ['Amass', 'Nikto', 'Hydra', 'WPScan', 'Mimikatz']
             }
         ];
         this.setupDraggableElements();
@@ -87,21 +75,21 @@ class DragAndDropManager {
         toolDiv.setAttribute('draggable', true);
         toolDiv.addEventListener('dragstart', this.handleDragStart.bind(this));
         toolDiv.addEventListener('dragend', this.handleDragEnd);
-        toolDiv.addEventListener('click', this.handleItemLeftClick.bind(this, toolDiv));
-        toolDiv.addEventListener('contextmenu', this.handleItemRightClick.bind(this, toolDiv));
         return toolDiv;
     }
+
+
 
     getDraggableClass(color) {
         switch (color) {
             case COLORS.GREEN:
-                return 'draggable-1';
+                return 'draggable-1 box';
             case COLORS.YELLOW:
-                return 'draggable-2';
+                return 'draggable-2 box';
             case COLORS.RED:
-                return 'draggable-3';
+                return 'draggable-3 box';
             default:
-                return '';
+                return 'box';
         }
     }
 
@@ -114,107 +102,8 @@ class DragAndDropManager {
         event.target.style.opacity = "";
     }
 
-    handleItemLeftClick(item, event) {
-        event.preventDefault();
-
-        const parentCategory = item.parentElement;
-
-        if (parentCategory.classList.contains("top-box")) {
-            let toolInput = item.querySelector("input");
-
-            if (toolInput) {
-                toolInput.style.display = "inline-block";
-                toolInput.focus();
-                return;
-            }
-
-            const container = document.createElement("div");
-            const input = document.createElement("input");
-
-            input.type = "text";
-            input.style.display = "inline-block";
-
-            const spanContainer = document.createElement("div");
-
-            spanContainer.style.marginTop = "5px";
-            spanContainer.style.display = "flex";
-            spanContainer.style.alignItems = "center";
-            spanContainer.style.justifyContent = "space-around";
-            spanContainer.style.flexWrap = "wrap";
-
-            container.appendChild(input);
-            container.appendChild(spanContainer);
-            item.appendChild(container);
-
-            input.focus();
-
-            input.addEventListener("blur", () => {
-                input.style.display = "none";
-            });
-
-            input.addEventListener("keypress", (e) => {
-                if (e.key === "Enter") {
-                    const value = input.value.trim();
-
-                    if (value !== "") {
-                        const span = document.createElement("span");
-
-                        span.style.margin = "5px";
-                        span.style.padding = "5px";
-                        span.style.backgroundColor = "#34495E";
-                        span.style.borderRadius = "8px";
-                        span.style.animation = "toolAppear 0.2s ease-in-out";
-
-                        const img = document.createElement("img");
-
-                        img.src = "../../assets/icons/plus.png";
-                        img.width = 24;
-                        img.height = 24;
-                        img.style.marginRight = "5px";
-                        img.style.verticalAlign = "middle";
-
-                        const textNode = document.createTextNode(value);
-
-                        span.appendChild(img);
-                        span.appendChild(textNode);
-                        spanContainer.appendChild(span);
-                        input.value = "";
-                    }
-                }
-            });
-        }
-    }
-
-    handleItemRightClick(item, event) {
-        event.preventDefault();
-
-        const parentCategory = item.parentElement;
-
-        if (parentCategory.classList.contains("top-box")) {
-            const toolsPanel = document.querySelector(".left-panel");
-            const tool = this.tools.find(t => t.id === item.id);
-
-            const img = item.querySelector("img");
-
-            if (img) {
-                img.parentNode.removeChild(img);
-            }
-
-            item.style.order = tool.position;
-            toolsPanel.appendChild(item);
-
-            const input = item.querySelector("input");
-
-            if (input) {
-                input.style.display = "none";
-            }
-
-            this.setupToolVisibilityToggles(this.toolVisibility);
-        }
-    }
-
     setupDropZones() {
-        const categories = document.querySelectorAll(".top-box");
+        const categories = document.querySelectorAll(".category");
 
         categories.forEach((category) => {
             category.addEventListener("dragover", this.handleDragOver);
@@ -236,27 +125,10 @@ class DragAndDropManager {
                 if (this.checkDropValidity(category, this.dragged)) {
                     category.classList.add("animate-tool-drop");
 
-                    if (!this.dragged.querySelector('img') || !this.dragged.querySelector('img').src.includes("click")) {
-                        const img = document.createElement("img");
-
-                        img.src = "../../assets/icons/click.png";
-                        img.width = 24;
-                        img.height = 24;
-                        img.style.marginRight = "5px";
-                        img.style.verticalAlign = "middle";
-
-                        this.dragged.insertBefore(img, this.dragged.firstChild);
-                    }
-
-                    category.appendChild(this.dragged);
-
-                    const templateIndex = this.templates.findIndex(template => template.name === category.textContent.trim());
-
-                    if (templateIndex !== -1) {
-                        this.templates[templateIndex].tools.push(this.dragged.textContent.trim());
-                    }
-
-                    // draggedId
+                    const clonedNode = this.dragged.cloneNode(true);
+                    clonedNode.style.margin = '10px 0'; // Adds some space between stacked boxes
+                    clonedNode.draggable = false; // Make the box undraggable after it's dropped
+                    category.appendChild(clonedNode);
 
                     setTimeout(() => {
                         category.classList.remove("animate-tool-drop");
@@ -302,7 +174,7 @@ class DragAndDropManager {
         } else {
             [COLORS.GREEN, COLORS.YELLOW, COLORS.RED].forEach((c) => {
                 tools[c].forEach((tool) => {
-                    if (!tool.closest('.top-box')) {
+                    if (!tool.closest('.category')) {
                         tool.style.display = c === color ? "block" : "none";
                     }
                 });
@@ -348,12 +220,12 @@ class DragAndDropManager {
     }
 
     renderTemplates() {
-        const templatesPanel = document.querySelector(".bottom-box-container");
+        const templatesPanel = document.querySelector(".attack-templates-panel");
 
         this.templates.forEach((template) => {
             const templateDiv = document.createElement("div");
 
-            templateDiv.classList.add("bottom-box");
+            templateDiv.classList.add("template");
 
             const img = document.createElement("img");
 
@@ -361,7 +233,6 @@ class DragAndDropManager {
             img.width = 24;
             img.height = 24;
             img.style.marginRight = "5px";
-            img.style.verticalAlign = "middle";
             templateDiv.appendChild(img);
 
             const templateName = document.createElement("span");
@@ -374,7 +245,6 @@ class DragAndDropManager {
             templatesPanel.appendChild(templateDiv);
         });
     }
-
 
     handleTemplateClick(template, templateDiv) {
         this.cleanCategories();
@@ -408,7 +278,7 @@ class DragAndDropManager {
     }
 
     cleanCategories() {
-        const categories = document.querySelectorAll(".top-box");
+        const categories = document.querySelectorAll(".category");
         const toolsPanel = document.querySelector(".left-panel");
 
         categories.forEach(category => {
