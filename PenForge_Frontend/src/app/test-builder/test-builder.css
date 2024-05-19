@@ -120,17 +120,9 @@ input::placeholder {
     border-radius: var(--border-radius);
 }
 
-.container::before {
-    content: "";
-    display: block;
-    width: var(--padding);
-}
-
 .container {
     display: flex;
-    padding-top: var(--padding);
-    padding-bottom: var(--padding);
-    padding-right: var(--padding);
+    padding: var(--padding);
     gap: var(--padding);
     height: calc(100vh - 50px);
 }
@@ -199,7 +191,6 @@ input::placeholder {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: var(--padding);
 }
 
 .box-container {
