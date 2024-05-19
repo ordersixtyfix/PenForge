@@ -33,6 +33,7 @@ body {
     font-size: clamp(12px, 1vw, 14px);
     color: #FFFFFF;
     background-color: #06263a;
+    height: calc(100vh - 100px);
 }
 
 input[type="text"] {
@@ -71,6 +72,7 @@ input::placeholder {
 }
 
 .navbar {
+    height: 50px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -95,13 +97,17 @@ input::placeholder {
     width: 200px;
 }
 
-.back-button img, .start-attack img, .clean-button img {
+.back-button img,
+.start-attack img,
+.clean-button img {
     width: 24px;
     height: 24px;
     margin-right: var(--margin);
 }
 
-.back-button a, .start-attack a, .clean-button a {
+.back-button a,
+.start-attack a,
+.clean-button a {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -117,11 +123,12 @@ input::placeholder {
 .container {
     display: flex;
     padding: var(--padding);
+    gap: var(--padding);
+    height: calc(100vh - 50px);
 }
 
 .left-panel {
     width: 20%;
-    height: calc(100vh - 100px);
     background-color: #011520;
     display: flex;
     flex-direction: column;
@@ -181,11 +188,9 @@ input::placeholder {
 
 .right-panel {
     width: 80%;
-    height: calc(100vh - 100px);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: var(--padding);
 }
 
 .box-container {
@@ -218,7 +223,9 @@ input::placeholder {
     overflow-x: hidden;
 }
 
-.top-box .draggable-1, .top-box .draggable-2, .top-box .draggable-3 {
+.top-box .draggable-1,
+.top-box .draggable-2,
+.top-box .draggable-3 {
     margin: 0;
     margin-top: var(--margin);
 }
