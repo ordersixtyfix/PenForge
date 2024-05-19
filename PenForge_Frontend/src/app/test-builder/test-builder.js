@@ -136,7 +136,7 @@ class DragAndDropManager {
 
             const spanContainer = document.createElement("div");
 
-            spanContainer.style.marginTop = "5px";
+            spanContainer.style.marginTop = "6px";
             spanContainer.style.display = "flex";
             spanContainer.style.alignItems = "center";
             spanContainer.style.justifyContent = "space-around";
@@ -159,8 +159,8 @@ class DragAndDropManager {
                     if (value !== "") {
                         const span = document.createElement("span");
 
-                        span.style.margin = "5px";
-                        span.style.padding = "5px";
+                        span.style.margin = "6px";
+                        span.style.padding = "8px";
                         span.style.backgroundColor = "#34495E";
                         span.style.borderRadius = "8px";
                         span.style.animation = "toolAppear 0.2s ease-in-out";
@@ -170,7 +170,7 @@ class DragAndDropManager {
                         img.src = "../../assets/icons/plus.png";
                         img.width = 24;
                         img.height = 24;
-                        img.style.marginRight = "5px";
+                        img.style.marginRight = "6px";
                         img.style.verticalAlign = "middle";
 
                         const textNode = document.createTextNode(value);
@@ -242,7 +242,11 @@ class DragAndDropManager {
                         img.src = "../../assets/icons/click.png";
                         img.width = 24;
                         img.height = 24;
+
                         img.style.marginRight = "5px";
+
+                        img.style.marginRight = "6px";
+
                         img.style.verticalAlign = "middle";
 
                         this.dragged.insertBefore(img, this.dragged.firstChild);
@@ -361,6 +365,9 @@ class DragAndDropManager {
             img.width = 24;
             img.height = 24;
             img.style.marginRight = "5px";
+
+            img.style.marginRight = "6px";
+
             img.style.verticalAlign = "middle";
             templateDiv.appendChild(img);
 
@@ -392,7 +399,7 @@ class DragAndDropManager {
                     img.src = "../../assets/icons/click.png";
                     img.width = 24;
                     img.height = 24;
-                    img.style.marginRight = "5px";
+                    img.style.marginRight = "6px";
 
                     toolDiv.insertBefore(img, toolDiv.firstChild);
                 }
