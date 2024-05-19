@@ -122,8 +122,8 @@ input::placeholder {
 
 .container {
     display: flex;
-    padding: var(--padding);
-    gap: var(--padding);
+    padding: 12px;
+    gap: 12px;
     height: calc(100vh - 50px);
 }
 
