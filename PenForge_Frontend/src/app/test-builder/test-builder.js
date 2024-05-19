@@ -299,11 +299,24 @@ class DragAndDropManager {
 
         this.toolVisibility = color;
 
-        filterButtons.green.addEventListener("click", () => this.setupToolVisibilityToggles(COLORS.GREEN));
-        filterButtons.yellow.addEventListener("click", () => this.setupToolVisibilityToggles(COLORS.YELLOW));
-        filterButtons.red.addEventListener("click", () => this.setupToolVisibilityToggles(COLORS.RED));
-        filterButtons.all.addEventListener("click", () => this.setupToolVisibilityToggles("all"));
+        if (!filterButtons.green.classList.contains('listener-added')) {
+            filterButtons.green.addEventListener("click", () => this.setupToolVisibilityToggles(COLORS.GREEN));
+            filterButtons.green.classList.add('listener-added');
+        }
+        if (!filterButtons.yellow.classList.contains('listener-added')) {
+            filterButtons.yellow.addEventListener("click", () => this.setupToolVisibilityToggles(COLORS.YELLOW));
+            filterButtons.yellow.classList.add('listener-added');
+        }
+        if (!filterButtons.red.classList.contains('listener-added')) {
+            filterButtons.red.addEventListener("click", () => this.setupToolVisibilityToggles(COLORS.RED));
+            filterButtons.red.classList.add('listener-added');
+        }
+        if (!filterButtons.all.classList.contains('listener-added')) {
+            filterButtons.all.addEventListener("click", () => this.setupToolVisibilityToggles("all"));
+            filterButtons.all.classList.add('listener-added');
+        }
     }
+
 
     setupTooltips() {
         const tooltipHandler = (event) => {
