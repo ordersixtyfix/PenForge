@@ -35,8 +35,8 @@ class DragAndDropManager {
         ];
         this.templates = [
             {
-                name: "Test Attack Template",
-                tools: ['Nmap', 'Nikto', 'Hydra']
+                name: "Ftp Brute Force Attack Template",
+                tools: ['Nmap', '', 'Hydra']
             },
             {
                 name: "Test Attack Template 2",
