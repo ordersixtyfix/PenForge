@@ -187,31 +187,36 @@ class DragAndDropManager {
 
     handleItemRightClick(item, event) {
         event.preventDefault();
-
+    
         const parentCategory = item.parentElement;
-
+    
         if (parentCategory.classList.contains("top-box")) {
             const toolsPanel = document.querySelector(".left-panel");
             const tool = this.tools.find(t => t.id === item.id);
-
-            const img = item.querySelector("img");
-
-            if (img) {
-                img.parentNode.removeChild(img);
+    
+            const text = item.textContent.trim();
+            if (!toolsPanel.textContent.includes(text)) {
+                const img = item.querySelector("img");
+    
+                if (img) {
+                    img.parentNode.removeChild(img);
+                }
+    
+                item.style.order = tool.position;
+                toolsPanel.appendChild(item);
             }
-
-            item.style.order = tool.position;
-            toolsPanel.appendChild(item);
-
+    
+            parentCategory.removeChild(item);
+    
             const input = item.querySelector("input");
-
+    
             if (input) {
                 input.style.display = "none";
             }
-
+    
             this.setupToolVisibilityToggles(this.toolVisibility);
         }
-    }
+    }    
 
     setupDropZones() {
         const categories = document.querySelectorAll(".top-box");
