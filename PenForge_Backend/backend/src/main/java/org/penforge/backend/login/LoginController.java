@@ -1,13 +1,10 @@
 package org.penforge.backend.login;
 
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.penforge.backend.common.GenericResponse;
 import org.penforge.backend.user.UserDto;
 import org.penforge.backend.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,26 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class LoginController {
 
-
-    private final AuthenticationManager authentication;
+    private final AuthenticationManager authenticationManager;
     private final UserService userService;
-
 
     @PostMapping("/login")
     public GenericResponse<UserDto> login(@RequestBody LoginRequest authRequest) {
         try {
-            Authentication authObject = authentication.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+            Authentication authObject = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authObject);
         } catch (BadCredentialsException e) {
-            // Handle the authentication failure here
             log.error("Authentication failed for user: {}", authRequest.getEmail());
             return new GenericResponse<UserDto>().setCode(401);
-        }
-        catch(Exception e){
-            System.out.println(e);
         }
         UserDto userDto = userService.getUserByEmail(authRequest.getEmail());
         return new GenericResponse<UserDto>().setCode(200).setData(userDto);
     }
-
 }

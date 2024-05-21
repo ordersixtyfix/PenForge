@@ -1,4 +1,4 @@
-package org.penforge.backend.forgotpassword;
+package org.penforge.backend.forgotPassword;
 
 import org.penforge.backend.common.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
