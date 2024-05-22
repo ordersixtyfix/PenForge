@@ -272,10 +272,10 @@ input::placeholder {
     z-index: 1000;
     display: none;
     color: #031F30;
-    top: 100%;
-    left: 0;
+    left: 100%;
     border-radius: var(--border-radius);
-    transform: translateY(-100%);
+    transform: translateY(-20%);
+    font-size: 90%;
 }
 
 .draggable-1:hover .tooltip,
