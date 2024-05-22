@@ -17,21 +17,22 @@ class DragAndDropManager {
 
         this.tools = [
             { id: 'Nmap', name: 'Nmap', tooltip: 'Nmap is a network scanning tool.', color: COLORS.GREEN, position: 0 },
-            { id: 'Masscan', name: 'Masscan', tooltip: 'Masscan is a fast password cracking tool.', color: COLORS.GREEN, position: 1 },
-            { id: 'Shodan', name: 'Shodan', tooltip: 'Shodan is a fast password cracking tool.', color: COLORS.GREEN, position: 2 },
-            { id: 'Amass', name: 'Amass', tooltip: 'Amass is a fast password cracking tool.', color: COLORS.GREEN, position: 3 },
-            { id: 'Nikto', name: 'Nikto', tooltip: 'Nikto is a fast password cracking tool.', color: COLORS.YELLOW, position: 4 },
-            { id: 'WPScan', name: 'WPScan', tooltip: 'WPScan is a fast password cracking tool.', color: COLORS.YELLOW, position: 5 },
-            { id: 'Burp Suite', name: 'Burp Suite', tooltip: 'Burp Suite is a fast password cracking tool.', color: COLORS.YELLOW, position: 6 },
-            { id: 'Enum4linux', name: 'Enum4linux', tooltip: 'Enum4linux is a fast password cracking tool.', color: COLORS.YELLOW, position: 7 },
-            { id: 'SMBMap', name: 'SMBMap', tooltip: 'SMBMap is a fast password cracking tool.', color: COLORS.YELLOW, position: 8 },
-            { id: 'SNMPWalk', name: 'SNMPWalk', tooltip: 'SNMPWalk is a fast password cracking tool.', color: COLORS.RED, position: 9 },
-            { id: 'Metasploit Framework', name: 'Metasploit Framework', tooltip: 'Metasploit Framework is a fast password cracking tool.', color: COLORS.RED, position: 10 },
-            { id: 'SQLMap', name: 'SQLMap', tooltip: 'SQLMap is a fast password cracking tool.', color: COLORS.RED, position: 11 },
-            { id: 'Hydra', name: 'Hydra', tooltip: 'Hydra is a fast password cracking tool.', color: COLORS.RED, position: 12 },
-            { id: 'Mimikatz', name: 'Mimikatz', tooltip: 'Mimikatz is a fast password cracking tool.', color: COLORS.RED, position: 13 },
-            { id: 'Responder', name: 'Responder', tooltip: 'Responder is a fast password cracking tool.', color: COLORS.RED, position: 14 },
-            { id: 'PowerSploit', name: 'PowerSploit', tooltip: 'PowerSploit is a fast password cracking tool.', color: COLORS.RED, position: 15 }
+            { id: 'Masscan', name: 'Masscan', tooltip: 'Masscan is a fast network scanner.', color: COLORS.GREEN, position: 1 },
+            { id: 'Shodan', name: 'Shodan', tooltip: 'Shodan is a search engine for Internet-connected devices.', color: COLORS.GREEN, position: 2 },
+            { id: 'Amass', name: 'Amass', tooltip: 'Amass is a tool for in-depth DNS enumeration.', color: COLORS.GREEN, position: 3 },
+            { id: 'Nikto', name: 'Nikto', tooltip: 'Nikto is a web server vulnerability scanner.', color: COLORS.YELLOW, position: 4 },
+            { id: 'WPScan', name: 'WPScan', tooltip: 'WPScan is a WordPress vulnerability scanner.', color: COLORS.YELLOW, position: 5 },
+            { id: 'Burp Suite', name: 'Burp Suite', tooltip: 'Burp Suite is a web vulnerability scanner and testing tool.', color: COLORS.YELLOW, position: 6 },
+            { id: 'Enum4linux', name: 'Enum4linux', tooltip: 'Enum4linux is a Linux tool for enumerating information from Windows and Samba systems.', color: COLORS.YELLOW, position: 7 },
+            { id: 'SMBMap', name: 'SMBMap', tooltip: 'SMBMap is a tool for assessing the security of SMB shares.', color: COLORS.YELLOW, position: 8 },
+            { id: 'SNMPWalk', name: 'SNMPWalk', tooltip: 'SNMPWalk is a tool for querying network devices via SNMP.', color: COLORS.RED, position: 9 },
+            { id: 'Metasploit Framework', name: 'Metasploit Framework', tooltip: 'Metasploit Framework is a tool for developing and executing exploit code against a remote target machine.', color: COLORS.RED, position: 10 },
+            { id: 'SQLMap', name: 'SQLMap', tooltip: 'SQLMap is a tool for automating the detection and exploitation of SQL injection flaws.', color: COLORS.RED, position: 11 },
+            { id: 'Hydra', name: 'Hydra', tooltip: 'Hydra is a parallelized login cracker which supports numerous protocols to attack.', color: COLORS.RED, position: 12 },
+            { id: 'Mimikatz', name: 'Mimikatz', tooltip: 'Mimikatz is a tool to gather credentials and perform credential-related attacks on Windows.', color: COLORS.RED, position: 13 },
+            { id: 'Responder', name: 'Responder', tooltip: 'Responder is a tool for LLMNR, NBT-NS, and MDNS poisoning attacks.', color: COLORS.RED, position: 14 },
+            { id: 'PowerSploit', name: 'PowerSploit', tooltip: 'PowerSploit is a collection of PowerShell scripts for post-exploitation.', color: COLORS.RED, position: 15 },
+            { id: 'Netcat', name: 'Netcat', tooltip: 'Netcat is a networking utility for reading from and writing to network connections.', color: COLORS.RED, position: 16 }
         ];
         this.templates = [
             {
@@ -39,12 +40,12 @@ class DragAndDropManager {
                 tools: ['Nmap', '', 'Hydra']
             },
             {
-                name: "Test Attack Template 2",
-                tools: ['Nmap', 'Nikto', 'Hydra', 'WPScan', 'Mimikatz']
+                name: "Ssh Brute Force Attack Template",
+                tools: ['Nmap', '', 'Metasploit Framework']
             },
             {
-                name: "Test Attack Template 3",
-                tools: ['Amass', 'Nikto', 'Hydra', 'WPScan', 'Mimikatz']
+                name: "BindShell Access Template",
+                tools: ['Amass', '', 'Netcat']
             },
             {
                 name: "Test Attack Template",

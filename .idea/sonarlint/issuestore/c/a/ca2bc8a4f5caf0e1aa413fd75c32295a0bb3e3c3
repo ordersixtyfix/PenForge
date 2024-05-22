@@ -1,0 +1,12 @@
+
+]
+java:S3655]"HCall "user.isPresent()" or "!user.isEmpty()" before accessing the value.(´›ó1
+`
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(àåıùÿÿÿÿ
+V	java:S125B"<This block of commented-out lines of code should be removed.(­’ğøÿÿÿÿ
+M
+java:S1135S"2Complete the task associated to this TODO comment.(ãÆù—ùÿÿÿÿ
+n
+java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡¸Îùÿÿÿÿ
+n
+java:S1128"XRemove this unused import 'org.springframework.security.config.Customizer.withDefaults'.(ÃÒş†
