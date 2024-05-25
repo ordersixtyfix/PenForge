@@ -17,7 +17,7 @@
             <img src="../../assets/icons/dash.png" alt="" class="nav-icon">
             Gösterge Paneli
         </a>
-        <a href="../welcome/welcome.html" class="nav-item">
+        <a href="../test-builder/test-builder.html" class="nav-item">
             <img src="../../assets/icons/testrail.png" alt="" class="nav-icon">
             Test Paneli
         </a>
@@ -38,67 +38,62 @@
             Çıkış
         </a>
     </nav>
+    <div class="footer-logo">
+        <img src="../../assets/logo/PenForge_Logo_Light.png" alt="PenForge Logo" class="footer-logo-pic">
+    </div>
 </div>
 
 <div class="main-content">
     <div class="metrics">
         <div class="metric-item">
+            <span class="metric-label">Toplam Hedef</span>
             <span class="metric-number">12</span>
-            <span class="metric-label">Kritik Tehditler</span>
         </div>
         <div class="metric-item">
+            <span class="metric-label">Toplam Zaafiyetli Hedef</span>
             <span class="metric-number">26</span>
-            <span class="metric-label">Yüksek Tehditler</span>
         </div>
         <div class="metric-item">
+            <span class="metric-label">Toplam Açık Port</span>
             <span class="metric-number">32</span>
-            <span class="metric-label">Orta Tehditler</span>
         </div>
         <div class="metric-item">
+            <span class="metric-label">Toplam Test</span>
             <span class="metric-number">30</span>
-            <span class="metric-label">Düşük Tehditler</span>
         </div>
     </div>
     <div class="charts-section">
         <div class="chart-item">
-            <h5>Vulnerability History</h5>
-            <div class="chart" id="vulnerability-history-chart">
-                <canvas id="vulnerabilityHistoryChart"></canvas>
+            <h5>Zaafiyetli Portların Dağılımı</h5>
+            <div class="chart" id="vulnerability-port-distribution-chart">
+                <canvas id="vulnerabilityPortDistributionChart"></canvas>
             </div>
         </div>
         <div class="chart-item">
-            <h5>Vulnerability by Category</h5>
-            <div class="chart" id="vulnerability-category-chart">
-                <canvas id="vulnerabilityCategoryChart"></canvas>
+            <h5>Port Durumları</h5>
+            <div class="chart" id="port-status-chart">
+                <canvas id="portStatusChart"></canvas>
             </div>
         </div>
     </div>
-    <div class="reports-section">
-        <h5>Geçmiş Taramalar</h5>
-        <table class="reports-table">
-            <thead>
-            <tr>
-                <th>Tarih</th>
-                <th>Durum</th>
-                <th>Detay</th>
-            </tr>
-            </thead>
-            <tbody id="report-table-body">
-            <!-- Dinamik olarak oluşturulacak satırlar buraya eklenecek -->
-            </tbody>
-        </table>
+    <div class="activities-section">
+        <div class="activities-item">
+            <h5>Son Aktiviteler</h5>
+            <ul class="activities-list">
+                <!-- Recent activities will be dynamically added here -->
+            </ul>
+        </div>
+        <div class="notifications-item">
+            <h5>Bildirimler</h5>
+            <ul class="notifications-list">
+                <!-- Notifications will be dynamically added here -->
+            </ul>
+        </div>
     </div>
 </div>
 
-<footer>
-    <div class="footer-logo">
-        <img src="../../assets/logo/PenForge_Logo_Light.png" alt="PenForge Logo" class="footer-logo-pic">
-    </div>
-</footer>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="homepage.js"></script>
-
-
 
 
 </body>

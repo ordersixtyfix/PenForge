@@ -55,7 +55,7 @@ class DragAndDropManager {
     }
 
     setupDraggableElements() {
-        const toolsPanel = document.querySelector('.tools-panel');
+        const toolsPanel = document.querySelector('.left-panel');
 
         this.tools.forEach(tool => {
             const toolDiv = this.createToolElement(tool);
@@ -75,21 +75,21 @@ class DragAndDropManager {
         toolDiv.setAttribute('draggable', true);
         toolDiv.addEventListener('dragstart', this.handleDragStart.bind(this));
         toolDiv.addEventListener('dragend', this.handleDragEnd);
-        toolDiv.addEventListener('click', this.handleItemLeftClick.bind(this, toolDiv));
-        toolDiv.addEventListener('contextmenu', this.handleItemRightClick.bind(this, toolDiv));
         return toolDiv;
     }
+
+
 
     getDraggableClass(color) {
         switch (color) {
             case COLORS.GREEN:
-                return 'draggable-1';
+                return 'draggable-1 box';
             case COLORS.YELLOW:
-                return 'draggable-2';
+                return 'draggable-2 box';
             case COLORS.RED:
-                return 'draggable-3';
+                return 'draggable-3 box';
             default:
-                return '';
+                return 'box';
         }
     }
 
@@ -100,105 +100,6 @@ class DragAndDropManager {
 
     handleDragEnd(event) {
         event.target.style.opacity = "";
-    }
-
-    handleItemLeftClick(item, event) {
-        event.preventDefault();
-
-        const parentCategory = item.parentElement;
-
-        if (parentCategory.classList.contains("category")) {
-            let toolInput = item.querySelector("input");
-
-            if (toolInput) {
-                toolInput.style.display = "inline-block";
-                toolInput.focus();
-                return;
-            }
-
-            const container = document.createElement("div");
-            const input = document.createElement("input");
-
-            input.type = "text";
-            input.style.display = "inline-block";
-
-            const spanContainer = document.createElement("div");
-
-            spanContainer.style.marginTop = "5px";
-            spanContainer.style.display = "flex";
-            spanContainer.style.alignItems = "center";
-            spanContainer.style.justifyContent = "space-around";
-            spanContainer.style.flexWrap = "wrap";
-
-            container.appendChild(input);
-            container.appendChild(spanContainer);
-            item.appendChild(container);
-
-            input.focus();
-
-            input.addEventListener("blur", () => {
-                input.style.display = "none";
-            });
-
-            input.addEventListener("keypress", (e) => {
-                if (e.key === "Enter") {
-                    const value = input.value.trim();
-
-                    if (value !== "") {
-                        const span = document.createElement("span");
-
-                        span.style.margin = "5px";
-                        span.style.padding = "5px";
-                        span.style.backgroundColor = "#34495E";
-                        span.style.borderRadius = "8px";
-                        span.style.animation = "toolAppear 0.2s ease-in-out";
-
-                        const img = document.createElement("img");
-
-                        img.src = "../../assets/icons/plus.png";
-                        img.width = 24;
-                        img.height = 24;
-                        img.style.marginRight = "5px";
-                        img.style.verticalAlign = "middle";
-
-                        const textNode = document.createTextNode(value);
-
-                        span.appendChild(img);
-                        span.appendChild(textNode);
-                        spanContainer.appendChild(span);
-                        input.value = "";
-                    }
-                }
-            });
-        }
-    }
-
-    handleItemRightClick(item, event) {
-        event.preventDefault();
-
-        const parentCategory = item.parentElement;
-
-        if (parentCategory.classList.contains("category")) {
-            const toolsPanel = document.querySelector(".tools-panel");
-            const tool = this.tools.find(t => t.id === item.id);
-
-            const img = item.querySelector("img");
-
-            if (img) {
-                img.parentNode.removeChild(img);
-            }
-
-            item.style.order = tool.position;
-            toolsPanel.appendChild(item);
-
-            const input = item.querySelector("input");
-
-            if (input) {
-                input.style.display = "none";
-            }
-
-            this.setupToolVisibilityToggles(this.toolVisibility);
-        }
     }
 
     setupDropZones() {
@@ -224,26 +125,10 @@ class DragAndDropManager {
                 if (this.checkDropValidity(category, this.dragged)) {
                     category.classList.add("animate-tool-drop");
 
-                    if (!this.dragged.querySelector('img') || !this.dragged.querySelector('img').src.includes("click")) {
-                        const img = document.createElement("img");
-
-                        img.src = "../../assets/icons/click.png";
-                        img.width = 24;
-                        img.height = 24;
-                        img.style.marginRight = "5px";
-
-                        this.dragged.insertBefore(img, this.dragged.firstChild);
-                    }
-
-                    category.appendChild(this.dragged);
-
-                    const templateIndex = this.templates.findIndex(template => template.name === category.textContent.trim());
-
-                    if (templateIndex !== -1) {
-                        this.templates[templateIndex].tools.push(this.dragged.textContent.trim());
-                    }
-
-                    // draggedId
+                    const clonedNode = this.dragged.cloneNode(true);
+                    clonedNode.style.margin = '10px 0'; // Adds some space between stacked boxes
+                    clonedNode.draggable = false; // Make the box undraggable after it's dropped
+                    category.appendChild(clonedNode);
 
                     setTimeout(() => {
                         category.classList.remove("animate-tool-drop");
@@ -361,7 +246,6 @@ class DragAndDropManager {
         });
     }
 
-
     handleTemplateClick(template, templateDiv) {
         this.cleanCategories();
 
@@ -395,7 +279,7 @@ class DragAndDropManager {
 
     cleanCategories() {
         const categories = document.querySelectorAll(".category");
-        const toolsPanel = document.querySelector(".tools-panel");
+        const toolsPanel = document.querySelector(".left-panel");
 
         categories.forEach(category => {
             const children = category.children;
