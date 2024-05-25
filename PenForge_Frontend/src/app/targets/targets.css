@@ -1,9 +1,10 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Helvetica', sans-serif;
     background-color: #031F30;
     color: white;
 }
+
 /* Sidebar Styles */
 .sidebar {
     width: 280px;
@@ -71,102 +72,64 @@ body {
     display: block;
 }
 
-
 /* Main Content Styles */
 .main-content {
     margin-left: 280px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-.metrics {
+.header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.metric-item {
-    background-color: #011520;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 20%;
-}
-
-.metric-number {
-    display: block;
-    font-size: 36px;
-    color: #F76C5E;
-}
-
-.metric-label {
-    font-size: 18px;
-    color: white;
-}
-
-.charts-section {
+.header-left {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
 
-.chart-item {
-    background-color: #011520;
-    padding: 20px;
-    border-radius: 10px;
-    flex: 1;
-    margin-right: 20px;
-    margin-top: 0;
+.table-container {
+    overflow-y: auto;
+    height: calc(100vh - 100px); /* Adjust this value based on the height of your header and other elements */
 }
 
-.chart-item:last-child {
-    margin-right: 0;
-}
-
-.chart {
+table {
     width: 100%;
-    height: 250px;
-}
-
-.reports-section {
-    max-height: calc(100vh - 440px); /* Önceden sabit olan alanı düşürdük */
-    overflow-y: auto; /* Eğer içerik ekran boyutunu aşarsa dikey kaydırma çubuğu görünsün */
+    border-collapse: collapse;
     background-color: #011520;
-    padding: 20px;
     border-radius: 10px;
-    margin-top: 20px;
+    overflow: hidden;
 }
 
-
-.reports-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.reports-list li {
-    padding: 10px;
-    border-bottom: 1px solid #35515E;
+thead {
     color: white;
 }
 
-footer {
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 250px;
-    background-color: #011520;
+th, td {
+    padding: 10px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-.footer-logo-pic {
-    width: 120px;
-    margin: auto;
-    display: block;
+tr:hover {
+    background-color: #f1f1f1;
+    color: black;
 }
 
-.chart-item h5 {
-    margin-top: 0;
+.action-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 5px;
 }
 
-.reports-section h5 {
-    margin-top: 0;
+.action-button:last-child {
+    margin-right: 0;
 }

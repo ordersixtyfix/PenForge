@@ -14,6 +14,9 @@ body {
     box-sizing: border-box;
     position: fixed;
     left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .profile {
@@ -30,12 +33,16 @@ body {
     margin-bottom: 10px;
 }
 
+.navigation {
+    flex-grow: 1;
+}
+
 .navigation .nav-item {
     display: flex;
     align-items: center;
     color: white;
     text-decoration: none;
-    padding: 15px;
+    padding: 10px;
     transition: background-color 0.3s;
 }
 
@@ -49,9 +56,22 @@ body {
     background-color: #1B5D85;
 }
 
-.navigation .nav-item+.nav-item {
+.navigation .nav-item + .nav-item {
     margin-top: 10px;
 }
+
+.footer-logo {
+    text-align: center;
+    padding: 10px;
+    background-color: #011520;
+}
+
+.footer-logo-pic {
+    width: 120px;
+    margin: auto;
+    display: block;
+}
+
 
 /* Main Content Styles */
 .main-content {
@@ -164,4 +184,16 @@ body {
         padding: 6px 10px;
         font-size: 12px;
     }
+}
+
+.footer-logo {
+    text-align: center;
+    padding: 10px;
+    background-color: #011520;
+}
+
+.footer-logo-pic {
+    width: 120px;
+    margin: auto;
+    display: block;
 }
