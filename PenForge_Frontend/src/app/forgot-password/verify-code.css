@@ -4,7 +4,7 @@ html {
     padding: 0;
     height: 100%;
     background-color: #101721;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .container {
@@ -41,52 +41,48 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .form-container {
     width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .form-container h2 {
     margin-bottom: 20px;
     font-size: 1.5em;
     color: #333333;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .input-group {
     width: 100%;
     margin-bottom: 20px;
+    text-align: left;
 }
 
 .input-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 6px;
-    background-color: #f9f9f9;
-}
-
-.timer-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.timer-container span {
-    color: #333333;
+    background-color: #c7c7c7;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
 }
 
 button {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     border: none;
-    color: #FFFFFF;
+    color: white;
     border-radius: 6px;
     background-color: #101721;
     cursor: pointer;
     font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
 }
 
 button:hover {
@@ -98,3 +94,32 @@ button:hover {
     display: flex;
     justify-content: center;
 }
+
+.link-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.link {
+    color: #cc0000;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #cc0000;
+    font-size: 0.9em;
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+}
+

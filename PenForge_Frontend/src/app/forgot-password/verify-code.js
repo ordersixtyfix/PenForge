@@ -1,30 +1,30 @@
 document.getElementById('verifyCodeButton').addEventListener('click', async function () {
+    sendVerificationCode();
+});
+
+document.getElementById('codeForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    sendVerificationCode();
+});
+
+async function sendVerificationCode() {
     const urlParams = new URLSearchParams(window.location.search);
     const email = urlParams.get('email');
     const code = document.getElementById('code').value;
+    const errorMessage = document.getElementById('error-message');
 
-    const response = await window.electronAPI.sendValidateTokenRequest(`token=${code}&email=${email}`);
+    // Önce hata mesajını temizle
+    errorMessage.textContent = '';
 
-    if (response.code === 200) {
-        alert("Kod doğrulandı.");
-        window.location.href = 'reset-password.html?token=' + code;
-    } else {
-        alert(response.data);
-    }
-});
+    try {
+        const response = await window.electronAPI.sendValidateTokenRequest(`token=${code}&email=${email}`);
 
-// Timer
-let timeLeft = 60;
-const timerElement = document.getElementById('time');
-
-function updateTimer() {
-    if (timeLeft > 0) {
-        timeLeft--;
-        timerElement.textContent = timeLeft;
-    } else {
-        alert("Süreniz doldu. Lütfen yeniden kod isteyin.");
-        window.location.href = 'forgot-password.html';
+        if (response.code === 200) {
+            window.location.href = 'reset-password.html?token=' + code;
+        } else {
+            errorMessage.textContent = 'Kod hatalı.';
+        }
+    } catch (error) {
+        errorMessage.textContent = 'Bir hata oluştu: ' + error.message;
     }
 }
-
-setInterval(updateTimer, 1000);

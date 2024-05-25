@@ -17,7 +17,7 @@ function createWindow() {
         }
     });
 
-    mainWindow.loadFile('src/app/test-builder/test-builder.html');
+    mainWindow.loadFile('src/app/login/login.html');
     Menu.setApplicationMenu(mainMenu);
 }
 
