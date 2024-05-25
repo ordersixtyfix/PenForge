@@ -82,6 +82,7 @@ public class WebSecurityConfig {
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/registration")).permitAll();
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/login")).permitAll();
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forgot-password/**")).permitAll();
+                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/logout")).permitAll();
                     auth.anyRequest().authenticated();
 
 
@@ -90,6 +91,7 @@ public class WebSecurityConfig {
                 })
                 .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v*/registration/**")))
                 .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/login")))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/logout")))
                 .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/forgot-password/**")))
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
