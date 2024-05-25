@@ -14,7 +14,6 @@ class DragAndDropManager {
     constructor() {
         this.dragged = null;
         this.toolVisibility = "all";
-
         this.tools = [
             { id: 'Nmap', name: 'Nmap', tooltip: 'Nmap is a network scanning tool.', color: COLORS.GREEN, position: 0 },
             { id: 'Masscan', name: 'Masscan', tooltip: 'Masscan is a fast network scanner.', color: COLORS.GREEN, position: 1 },
@@ -46,20 +45,10 @@ class DragAndDropManager {
             {
                 name: "BindShell Access Template",
                 tools: ['Amass', '', 'Netcat']
-            },
-            {
-                name: "Test Attack Template",
-                tools: ['Nmap', 'Nikto', 'Hydra']
-            },
-            {
-                name: "Test Attack Template 2",
-                tools: ['Nmap', 'Nikto', 'Hydra', 'WPScan', 'Mimikatz']
-            },
-            {
-                name: "Test Attack Template 3",
-                tools: ['Amass', 'Nikto', 'Hydra', 'WPScan', 'Mimikatz']
             }
         ];
+        this.selectedTemplate = null;
+
         this.setupDraggableElements();
         this.setupDropZones();
         this.setupToolVisibilityToggles(this.toolVisibility);
@@ -188,36 +177,40 @@ class DragAndDropManager {
 
     handleItemRightClick(item, event) {
         event.preventDefault();
-    
+
+        if (this.selectedTemplate !== null) {
+            return;
+        }
+
         const parentCategory = item.parentElement;
-    
+
         if (parentCategory.classList.contains("top-box")) {
             const toolsPanel = document.querySelector(".left-panel");
             const tool = this.tools.find(t => t.id === item.id);
-    
+
             const text = item.textContent.trim();
             if (!toolsPanel.textContent.includes(text)) {
                 const img = item.querySelector("img");
-    
+
                 if (img) {
                     img.parentNode.removeChild(img);
                 }
-    
+
                 item.style.order = tool.position;
                 toolsPanel.appendChild(item);
             }
-    
+
             parentCategory.removeChild(item);
-    
+
             const input = item.querySelector("input");
-    
+
             if (input) {
                 input.style.display = "none";
             }
-    
+
             this.setupToolVisibilityToggles(this.toolVisibility);
         }
-    }    
+    }
 
     setupDropZones() {
         const categories = document.querySelectorAll(".top-box");
@@ -404,6 +397,11 @@ class DragAndDropManager {
 
     handleTemplateClick(template, templateDiv) {
         this.cleanCategories();
+        this.selectedTemplate = template.name;
+
+        const toolsPanel = document.querySelector(".left-panel");
+
+        toolsPanel.classList.add('not-clickable');
 
         templateDiv.classList.add("animate-tool-drop");
         template.tools.forEach(toolName => {
@@ -434,8 +432,16 @@ class DragAndDropManager {
     }
 
     cleanCategories() {
+        if (this.selectedTemplate !== null) {
+            this.selectedTemplate = null;
+        }
+
         const categories = document.querySelectorAll(".top-box");
         const toolsPanel = document.querySelector(".left-panel");
+
+        if (toolsPanel.classList.contains('not-clickable')) {
+            toolsPanel.classList.remove('not-clickable');
+        }
 
         categories.forEach(category => {
             const children = category.children;
@@ -463,6 +469,112 @@ class DragAndDropManager {
 
         this.setupToolVisibilityToggles(this.toolVisibility);
     }
+
+    showAlert(message) {
+        const alertElement = document.getElementById('custom-alert');
+        const messageElement = document.getElementById('custom-alert-message');
+
+        messageElement.textContent = message;
+        alertElement.classList.remove('hide-visibility');
+    }
+
+    getToolsFromCategories() {
+        const categories = document.querySelectorAll('.top-box');
+        const tools = [];
+
+        categories.forEach(category => {
+            const categoryTools = [];
+
+            category.childNodes.forEach(childNode => {
+                if (childNode.nodeName === 'DIV') {
+                    const toolName = childNode.textContent.trim();
+                    categoryTools.push(toolName);
+                }
+            });
+
+            if (categoryTools.length > 0) {
+                tools.push({
+                    category: category.getAttribute('data-category-id'),
+                    tools: categoryTools
+                });
+            }
+        });
+
+        return tools;
+    }
+
+    startAttack() {
+        const ipInput = document.getElementById('target-ip');
+        const ipValue = ipInput.value.trim();
+
+        if (ipValue === '') {
+            this.showAlert("Lütfen bir IP adresi girin.");
+        }
+        else {
+            const tools = this.getToolsFromCategories();
+
+            if (tools.length === 0) {
+                this.showAlert("Kategorilerde hiç araç bulunamadı. Lütfen bir araç ekleyin.");
+            } else {
+                const loadingIcon = document.getElementById('loading');
+                loadingIcon.classList.remove('hide-visibility');
+
+                let templateKey;
+
+                switch (this.selectedTemplate) {
+                    case "Ftp Brute Force Attack Template":
+                        templateKey = "ftpBruteForce";
+                        break;
+                    case "Ssh Brute Force Attack Template":
+                        templateKey = "sshBruteForce";
+                        break;
+                    case "BindShell Access Template":
+                        templateKey = "bindShellAccess";
+                        break;
+                    default:
+                        templateKey = "";
+                        break;
+                }
+
+                const jsonData = {
+                    "userId": "1d537fe5-09e2-4886-8d5b-97391a1fa9f4"
+                };
+
+                jsonData["targetIp"] = ipValue;
+
+                if (this.selectedTemplate !== null) {
+                    jsonData["pentestScenario"] = templateKey;
+                } else {
+                    jsonData["tools"] = tools;
+                }
+
+                const url = 'http://localhost:8888/api/v1/pentest-templates';
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonData)
+                }).then(response => {
+                    if (!response.ok) {
+                        this.showAlert("Beklenmedik sorun oluştu, işlemi yapmayı tekrar deneyin.");
+                    }
+                    return response.json();
+                }).then(data => {
+                    this.showAlert(data);
+                }).catch(error => {
+                    this.showAlert('Hata oluştu:', error);
+                });
+
+                loadingIcon.classList.add('hide-visibility');
+            }
+        }
+    }
+}
+
+function closeAlert() {
+    document.getElementById('custom-alert').classList.add('hide-visibility');
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -471,5 +583,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("clean-button-link").addEventListener("click", function (event) {
         event.preventDefault();
         manager.cleanCategories();
+    });
+
+    document.getElementById("start-attack-link").addEventListener("click", function (event) {
+        event.preventDefault();
+        manager.startAttack();
     });
 });

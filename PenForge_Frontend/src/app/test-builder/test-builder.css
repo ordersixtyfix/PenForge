@@ -99,10 +99,15 @@ input::placeholder {
 
 .back-button img,
 .start-attack img,
-.clean-button img {
+.clean-button img,
+.loading-icon {
     width: 24px;
     height: 24px;
     margin-right: var(--margin);
+}
+
+.loading-icon {
+    margin: 0;
 }
 
 .back-button a,
@@ -122,8 +127,8 @@ input::placeholder {
 
 .container {
     display: flex;
-    padding: 12px;
-    gap: 12px;
+    padding: var(--padding);
+    gap: var(--padding);
     height: calc(100vh - 50px);
 }
 
@@ -286,4 +291,61 @@ input::placeholder {
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+#custom-alert,
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#custom-alert {
+    z-index: 1000;
+}
+
+#loading {
+    z-index: 1001;
+}
+
+.hide-visibility {
+    visibility: hidden;
+}
+
+.not-clickable {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.custom-alert-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    background-color: whitesmoke;
+    padding: var(--padding);
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #031F30;
+}
+
+.custom-alert-content button {
+    margin-top: var(--margin);
+    padding: var(--padding);
+    border: none;
+    background-color: #2C3E50;
+    color: white;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+.custom-alert-content button:hover {
+    background-color: #0F3A54;
 }
