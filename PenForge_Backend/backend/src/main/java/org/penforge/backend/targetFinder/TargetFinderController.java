@@ -16,7 +16,7 @@ public class TargetFinderController {
     @GetMapping()
     public ResponseEntity<GenericResponse<List<String>>> findTarget(){
         try {
-            List<String> devices = targetFinderService.scanNetworkDevices("192.168.0.0/16");
+            List<String> devices = targetFinderService.scanNetworkDevices("192.168.1.0/24");
             return ResponseEntity.ok(new GenericResponse<List<String>>().setCode(200).setData(devices));
         } catch (Exception e) {
             return ResponseEntity.status(400).body(new GenericResponse<List<String>>().setCode(400).setData(null));
