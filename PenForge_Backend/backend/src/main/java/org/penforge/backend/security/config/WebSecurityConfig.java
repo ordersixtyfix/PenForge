@@ -44,6 +44,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class WebSecurityConfig {
 
     private final UserService userService;
+    private final LoginSuccessHandler loginSuccessHandler;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Bean
@@ -75,22 +76,29 @@ public class WebSecurityConfig {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
 
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf->csrf.disable())
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/registration")).permitAll();
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/login")).permitAll();
-                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/pentest-templates")).permitAll();
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/forgot-password/**")).permitAll();
-                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/find-target/**")).permitAll();
+                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/logout")).permitAll();
                     auth.anyRequest().authenticated();
+
+
+
+
                 })
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v*/registration/**")))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/login")))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/logout")))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/forgot-password/**")))
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .formLogin(form -> form
-                        .loginProcessingUrl("/api/v1/login/")
-                        .successHandler(authenticationSuccessHandler())
-                        .failureHandler(authenticationFailureHandler())
+                .formLogin(form->form
+
+                        .successHandler(loginSuccessHandler)
+                        .permitAll()
 
                 )
                 .build();

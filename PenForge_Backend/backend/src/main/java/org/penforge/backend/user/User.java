@@ -32,4 +32,5 @@ public class User extends Base {
 
     private String resetToken;
 
+
 }

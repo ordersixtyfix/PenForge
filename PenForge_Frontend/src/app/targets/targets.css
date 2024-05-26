@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Helvetica', sans-serif;
     background-color: #031F30;
     color: white;
 }
@@ -72,74 +72,64 @@ body {
     display: block;
 }
 
-
 /* Main Content Styles */
 .main-content {
     margin-left: 280px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Tablo stilleri */
-.scan-table {
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.table-container {
+    overflow-y: auto;
+    height: calc(100vh - 100px); /* Adjust this value based on the height of your header and other elements */
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    overflow-x: auto;
+    background-color: #011520;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.scan-table img {
-    max-width: 24px;
-    max-height: 24px;
-}
-
-
-.scan-table th, .scan-table td {
-    border: 1px solid #35515E;
-    padding: 8px;
-    text-align: left;
-}
-
-.scan-table th {
-    background-color: #1B5D85;
+thead {
     color: white;
 }
 
-.scan-table a {
-    color: #1B5D85;
-    text-decoration: none;
+th, td {
+    padding: 10px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-.scan-table a:hover {
-    text-decoration: underline;
+tr:hover {
+    background-color: #f1f1f1;
+    color: black;
 }
 
-/* Sonuç renkleri */
-.success {
-    color: #2ECC71;
-}
-
-.failed {
-    color: #E74C3C;
-}
-
-/* Pagination stilleri */
-.pagination {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.pagination-button {
-    padding: 8px 12px;
-    background-color: #1B5D85;
+.action-button {
+    background-color: #3498db;
     color: white;
     border: none;
-    border-radius: 4px;
-    margin: 0 5px;
+    padding: 5px 10px;
     cursor: pointer;
+    margin-right: 5px;
+    border-radius: 5px;
 }
 
-.pagination-button:hover {
-    background-color: #14415F;
+.action-button:last-child {
+    margin-right: 0;
 }

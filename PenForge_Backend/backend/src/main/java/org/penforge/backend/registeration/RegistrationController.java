@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @RequestMapping(path="api/v1/registration")
+
+
 public class RegistrationController {
 
 

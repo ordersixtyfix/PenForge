@@ -1,15 +1,17 @@
 package org.penforge.backend.forgotPassword;
 
+import lombok.AllArgsConstructor;
 import org.penforge.backend.common.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/forgot-password")
+@AllArgsConstructor
 public class ForgotPasswordController {
 
-    @Autowired
-    private ForgotPasswordService forgotPasswordService;
+    private final ForgotPasswordService forgotPasswordService;
+
 
     @PostMapping("/request")
     public GenericResponse<String> requestReset(@RequestParam String email) {
