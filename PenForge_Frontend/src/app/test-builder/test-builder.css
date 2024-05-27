@@ -151,6 +151,7 @@ input::placeholder {
     align-self: flex-start;
 }
 
+.tools-info,
 .tools-red-box,
 .tools-yellow-box,
 .tools-green-box,

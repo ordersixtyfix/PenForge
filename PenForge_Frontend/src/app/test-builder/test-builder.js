@@ -474,7 +474,7 @@ class DragAndDropManager {
         const alertElement = document.getElementById('custom-alert');
         const messageElement = document.getElementById('custom-alert-message');
 
-        messageElement.textContent = message;
+        messageElement.innerHTML = message;
         alertElement.classList.remove('hide-visibility');
     }
 
@@ -588,5 +588,26 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("start-attack-link").addEventListener("click", function (event) {
         event.preventDefault();
         manager.startAttack();
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const testIp = urlParams.get('testIp');
+
+    if (testIp) {
+        const targetInput = document.getElementById('target-ip');
+        if (targetInput) {
+            targetInput.value = testIp;
+        }
+    }
+
+    const toolInformation = document.querySelector('.tools-info');
+
+    toolInformation.addEventListener("click", () => {
+        manager.showAlert("<span style='color: #3a8d4a;'>Reconnaissance (Yeşil): Bu kategorideki araçlar, bir hedef hakkında bilgi toplamak için kullanılır.</span><br/>\
+        <span style='color: #e0b830';>Enumeration (Sarı): Bu araçlar, daha derinlemesine bilgi toplama ve hedef sistemlerin detaylı analizini yapmak için kullanılır.</span><br/>\
+        <span style='color: #9e1f45;'>Exploitation (Kırmızı) Bu kategorideki araçlar, tespit edilen güvenlik açıklarını kullanarak sistemlere yetkisiz erişim sağlamak için kullanılır.</span><br/>\
+        Araçları kategorilere sürükleyebilirsiniz.\
+        Sürüklediğiniz araçlara farenin sol tuşuyla tıklayarak parametre girebilirsiniz.\
+        Sürüklediğiniz araçları farenin sağ tuşuyla kategoriden çıkarabilirsiniz.");
     });
 });
