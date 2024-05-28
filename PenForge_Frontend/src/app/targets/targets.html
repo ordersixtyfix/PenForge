@@ -60,6 +60,24 @@
             </tbody>
         </table>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const userDtoString = localStorage.getItem('userDto');
+
+            if (userDtoString) {
+                try {
+                    const userDto = JSON.parse(userDtoString);
+                    if (userDto) {
+                        document.getElementById('user-name').textContent = `${userDto.firstName} ${userDto.lastName}`;
+                    }
+                } catch (e) {
+                    console.error('Invalid JSON in local storage:', e);
+                }
+            } else {
+                console.log('Kullanıcı bilgileri bulunamadı');
+            }
+        });
+    </script>
 
     <script src="targets.js"></script>
 </body>

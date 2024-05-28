@@ -10,21 +10,6 @@ document.getElementById('logoutButton').addEventListener('click', async function
     }
 });
 
-// Fetch user data from the server
-async function fetchUserData() {
-    try {
-        const response = await fetch('/api/user');
-        const user = await response.json();
-        document.getElementById('user-name').textContent = user.name;
-        document.getElementById('profile-pic').src = user.profilePicture;
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-    }
-}
-
-// Call the function to fetch and display user data
-fetchUserData();
-
 // Example chart initialization code
 const ctxVulnerabilityPortDistribution = document.getElementById('vulnerabilityPortDistributionChart').getContext('2d');
 const vulnerabilityPortDistributionChart = new Chart(ctxVulnerabilityPortDistribution, {
@@ -79,3 +64,4 @@ const portStatusChart = new Chart(ctxPortStatus, {
         }
     }
 });
+
