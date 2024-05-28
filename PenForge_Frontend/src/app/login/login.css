@@ -1,0 +1,119 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #101721;
+    font-family: "DM Sans", sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+/* Sol taraf */
+.left {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+.right {
+    width: 40%;
+    background: #fff;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.form-container {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+
+.logo-left {
+    max-width: 22%;
+    height: auto; /* Yükseklik orantılı */
+}
+
+.logo-right{
+    max-width: 15%; /* Sol logo genişliği */
+    height: auto; /* Yükseklik orantılı */
+}
+
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: #c7c7c7;
+    box-sizing: border-box;
+    font-family: "DM Sans", sans-serif;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    color: white ;
+    border-radius: 6px;
+    background-color: #101721;
+    box-sizing: border-box;
+    font-family: "DM Sans", sans-serif;
+}
+
+button:hover {
+    background-color: #1f496a;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* İçeriği yatayda ortalar */
+}
+
+
+.link-container {
+    display: flex;
+    justify-content: space-between; /* Linkler arasında tamamen dağıt */
+    align-items: center; /* Linkleri dikey olarak ortala */
+    width: 100%; /* Tam genişlik kullanılarak ebeveyn ile aynı hiza getir */
+    margin-top: 20px; /* Üstten boşluk */
+}
+
+.link {
+
+    color: #cc0000; /* Linklerin renk değeri */
+    padding: 5px; /* Linklere biraz padding ekle */
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.link:hover {
+    text-decoration: underline; /* Mouse üzerine geldiğinde altını çiz */
+}
+
+
+/* Button Container */
+.button-container {
+    width: 100%; /* Button container genişliği form ile eşleşecek */
+    display: flex;
+    justify-content: center; /* Butonu yatayda ortala */
+}

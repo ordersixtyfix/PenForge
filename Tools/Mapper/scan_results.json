@@ -1,0 +1,140 @@
+[
+  {
+    "ip_address": "192.168.220.128",
+    "port": 21,
+    "state": "open",
+    "service": "ftp"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 22,
+    "state": "open",
+    "service": "ssh"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 23,
+    "state": "open",
+    "service": "telnet"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 25,
+    "state": "open",
+    "service": "smtp"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 53,
+    "state": "open",
+    "service": "domain"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 80,
+    "state": "open",
+    "service": "http"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 111,
+    "state": "open",
+    "service": "rpcbind"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 139,
+    "state": "open",
+    "service": "netbios-ssn"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 445,
+    "state": "open",
+    "service": "microsoft-ds"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 512,
+    "state": "open",
+    "service": "exec"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 513,
+    "state": "open",
+    "service": "login"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 514,
+    "state": "open",
+    "service": "shell"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 1099,
+    "state": "open",
+    "service": "rmiregistry"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 1524,
+    "state": "open",
+    "service": "ingreslock"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 2049,
+    "state": "open",
+    "service": "nfs"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 2121,
+    "state": "open",
+    "service": "ccproxy-ftp"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 3306,
+    "state": "open",
+    "service": "mysql"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 5432,
+    "state": "open",
+    "service": "postgresql"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 5900,
+    "state": "open",
+    "service": "vnc"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 6000,
+    "state": "open",
+    "service": "X11"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 6667,
+    "state": "open",
+    "service": "irc"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 8009,
+    "state": "open",
+    "service": "ajp13"
+  },
+  {
+    "ip_address": "192.168.220.128",
+    "port": 8180,
+    "state": "open",
+    "service": "unknown"
+  }
+]

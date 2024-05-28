@@ -2,5 +2,10 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+<<<<<<< HEAD
+=======
+    <mapping directory="$PROJECT_DIR$/PenForge_Backend" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PenForge_Frontend" vcs="Git" />
+>>>>>>> 7aaa89b0f11d43190f5667a24598c71e3c0ce04a
   </component>
 </project>
