@@ -1,6 +1,0 @@
-github.com/songgao/water v0.0.0-20200317203138-2b4b6d7c09d8 h1:TG/diQgUe0pntT/2D9tmUCz4VNwm9MfrtPr0SU2qSX8=
-github.com/songgao/water v0.0.0-20200317203138-2b4b6d7c09d8/go.mod h1:P5HUIBuIWKbyjl083/loAegFkfbFNx5i2qEP4CNbm7E=
-github.com/stacktitan/smb v0.0.0-20190531122847-da9a425dceb8 h1:GVFkBBJAEO3CpzIYcDDBdpUObzKwVW9okNWcLYL/nnU=
-github.com/stacktitan/smb v0.0.0-20190531122847-da9a425dceb8/go.mod h1:phLSETqH/UJsBtwDVBxSfJKwwkbJcGyy2Q/h4k+bmww=
-golang.org/x/sys v0.19.0 h1:q5f1RH2jigJ1MoAWp2KTp3gm5zAGFUTarQZ5U386+4o=
-golang.org/x/sys v0.19.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
