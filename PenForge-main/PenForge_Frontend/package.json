@@ -1,0 +1,35 @@
+{
+  "name": "penforge_electronjs_frontend",
+  "version": "1.0.0",
+  "description": "PenForge Frontend",
+  "main": "src/app/main.js",
+  "scripts": {
+    "start": "node_modules/.bin/electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon --exec electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ordersixtyfix/PenForge_ElectronJS_Frontend.git"
+  },
+  "keywords": [
+    "Pentest",
+    "Hacking",
+    "Desktop",
+    "App"
+  ],
+  "author": "PenForge Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ordersixtyfix/PenForge_ElectronJS_Frontend/issues"
+  },
+  "homepage": "https://github.com/ordersixtyfix/PenForge_ElectronJS_Frontend#readme",
+  "devDependencies": {
+    "electron": "^30.0.4",
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "cors": "^2.8.5"
+  }
+}
