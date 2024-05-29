@@ -509,8 +509,7 @@ class DragAndDropManager {
 
         if (ipValue === '') {
             this.showAlert("Lütfen bir IP adresi girin.");
-        }
-        else {
+        } else {
             const tools = this.getToolsFromCategories();
 
             if (tools.length === 0) {
@@ -536,17 +535,14 @@ class DragAndDropManager {
                         break;
                 }
 
+                const userDto = JSON.parse(localStorage.getItem('userDto'));
+                const userId = userDto.id;
+
                 const jsonData = {
-                    "userId": "1d537fe5-09e2-4886-8d5b-97391a1fa9f4"
+                    userId: userId,
+                    targetIP: ipValue,
+                    pentestScenario: templateKey
                 };
-
-                jsonData["targetIp"] = ipValue;
-
-                if (this.selectedTemplate !== null) {
-                    jsonData["pentestScenario"] = templateKey;
-                } else {
-                    jsonData["tools"] = tools;
-                }
 
                 const url = 'http://localhost:8888/api/v1/pentest-templates';
 
@@ -556,21 +552,47 @@ class DragAndDropManager {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(jsonData)
-                }).then(response => {
-                    if (!response.ok) {
+                }).then(response => response.json())
+                    .then(data => {
+                        if (data.code === 200) {
+                            const reportId = data.data;
+                            return fetch('http://localhost:8888/api/v1/report-generate', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ reportId: reportId })
+                            });
+                        } else {
+                            this.showAlert("Bir hata oluştu.");
+                            throw new Error("Pentest işlemi başarısız oldu.");
+                        }
+                    }).then(response => {
+                    if (response.ok) {
+                        return response.blob();
+                    } else {
                         this.showAlert("Beklenmedik sorun oluştu, işlemi yapmayı tekrar deneyin.");
+                        throw new Error("PDF oluşturulamadı.");
                     }
-                    return response.json();
-                }).then(data => {
-                    this.showAlert(data);
+                }).then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'report.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
                 }).catch(error => {
                     this.showAlert('Hata oluştu:', error);
+                }).finally(() => {
+                    loadingIcon.classList.add('hide-visibility');
                 });
-
-                loadingIcon.classList.add('hide-visibility');
             }
         }
     }
+
+
 }
 
 function closeAlert() {

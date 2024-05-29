@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Test Raporu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .data-set {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            page-break-inside: avoid; /* Prevent page break inside */
+        }
+
+        .data-set p {
+            margin: 10px 0;
+        }
+
+        .section-title {
+            margin-top: 30px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .highlight {
+            background-color: #e8f0fe;
+        }
+
+        ul {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .avoid-page-break {
+            page-break-inside: avoid; /* Prevent page break inside */
+        }
+    </style>
+</head>
+<body>
+<h1>Scan Report</h1>
+
+<div class="data-set avoid-page-break">
+    <p><strong>IP Addresi:</strong> <span th:text="${pentestReport.targetIP}">N/A</span></p>
+    <p><strong>Servis:</strong> <span th:text="${pentestReport.targetService}">N/A</span></p>
+    <p><strong>Port:</strong> <span th:text="${pentestReport.targetPort}">N/A</span></p>
+    <p><strong>Tarama Tarihi:</strong> <span th:text="${pentestReport.scanDate}">N/A</span></p>
+    <p><strong>Root Shell Access:</strong> <span th:text="${pentestReport.rootShellAccess ? 'Yes' : 'No'}">N/A</span></p>
+
+    <div th:if="${pentestReport.credentials != null and not #lists.isEmpty(pentestReport.credentials)}">
+        <h2 class="section-title">Credentials</h2>
+        <table class="highlight">
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+            </tr>
+            <tr th:each="cred : ${pentestReport.credentials}">
+                <td th:text="${cred.username}">N/A</td>
+                <td th:text="${cred.password}">N/A</td>
+            </tr>
+        </table>
+    </div>
+    <p th:unless="${pentestReport.credentials != null and not #lists.isEmpty(pentestReport.credentials)}">No credentials available.</p>
+
+    <div th:if="${pentestReport.portData != null and not #lists.isEmpty(pentestReport.portData)}">
+        <h2 class="section-title">Port Data</h2>
+        <table class="highlight">
+            <tr>
+                <th>Port</th>
+                <th>State</th>
+                <th>Service</th>
+            </tr>
+            <tr th:each="port : ${pentestReport.portData}">
+                <td th:text="${port.port}">N/A</td>
+                <td th:text="${port.portState}">N/A</td>
+                <td th:text="${port.portService}">N/A</td>
+            </tr>
+        </table>
+    </div>
+    <p th:unless="${pentestReport.portData != null and not #lists.isEmpty(pentestReport.portData)}">No port data available.</p>
+
+</div>
+
+</body>
+</html>
