@@ -5,77 +5,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="test-builder.css">
 </head>
 
 <body>
-    <div class="navbar">
-        <div class="logo">
-            <img src="../../assets/logo/PenForge_Logo_Light.png" alt="Logo">
-        </div>
-        <input type="text" id="target-ip" placeholder="Hedef IP'yi girin.">
-        <div class="start-attack">
-            <a href="#" id="start-attack-link">
-                <img src="../../assets/icons/aim.png" alt="Temizle">
-                <span>Saldırıyı başlat</span>
-            </a>
-        </div>
-        <div class="clean-button">
-            <a href="#" id="clean-button-link">
-                <img src="../../assets/icons/clean.png" alt="Temizle">
-                <span>Temizle</span>
-            </a>
-        </div>
-        <div class="back-button">
-            <a href="../home/homepage.html">
-                <img src="../../assets/icons/back.png" alt="Geri Dön">
-                <span>Geri dön</span>
-            </a>
-        </div>
+<div class="navbar">
+    <div class="logo">
+        <img src="../../assets/logo/PenForge_Logo_Light.png" alt="Logo">
     </div>
-    <div class="container">
-        <div class="left-panel">
-            <div class="tools-boxes">
-                <img class="tools-info" src="../../assets/icons/info.png" alt="Tools information">
-                <div class="tools-all-box"></div>
-                <div class="tools-green-box"></div>
-                <div class="tools-yellow-box"></div>
-                <div class="tools-red-box"></div>
-            </div>
-            <!-- Tools will be dynamically added here -->
+    <input type="text" id="target-ip" placeholder="Hedef IP'yi girin.">
+    <div class="start-attack">
+        <a href="#" id="start-attack-link">
+            <img src="../../assets/icons/aim.png" alt="Temizle">
+            <span>Saldırıyı başlat</span>
+        </a>
+    </div>
+    <div class="clean-button">
+        <a href="#" id="clean-button-link">
+            <img src="../../assets/icons/clean.png" alt="Temizle">
+            <span>Temizle</span>
+        </a>
+    </div>
+    <div class="back-button">
+        <a href="../home/homepage.html">
+            <img src="../../assets/icons/back.png" alt="Geri Dön">
+            <span>Geri dön</span>
+        </a>
+    </div>
+</div>
+<div class="container">
+    <div class="left-panel">
+        <div class="tools-boxes">
+            <img class="tools-info" src="../../assets/icons/info.png" alt="Tools information">
+            <div class="tools-all-box"></div>
+            <div class="tools-green-box"></div>
+            <div class="tools-yellow-box"></div>
+            <div class="tools-red-box"></div>
         </div>
-        <div class="right-panel">
-            <div class="box-container">
-                <div class="top-box-container">
-                    <div class="top-box" data-category-id="recon">
-                        <img src="../../assets/icons/recon.png" alt="Reconnaissance Icon" class="top-box-icon">
-                        <span>Reconnaissance</span>
-                    </div>
-                    <div class="top-box" data-category-id="discovery">
-                        <img src="../../assets/icons/discovery.png" alt="Discovery Icon" class="top-box-icon">
-                        <span>Enumeration</span>
-                    </div>
-                    <div class="top-box" data-category-id="exploitation">
-                        <img src="../../assets/icons/exploit.png" alt="Exploitation Icon" class="top-box-icon">
-                        <span>Exploitation</span>
-                    </div>
+        <!-- Tools will be dynamically added here -->
+    </div>
+    <div class="right-panel">
+        <div class="box-container">
+            <div class="top-box-container">
+                <div class="top-box" data-category-id="recon">
+                    <img src="../../assets/icons/recon.png" alt="Reconnaissance Icon" class="top-box-icon">
+                    <span>Reconnaissance</span>
                 </div>
-                <div class="bottom-box-container">
-                    <!-- Templates will be dynamically added here -->
+                <div class="top-box" data-category-id="discovery">
+                    <img src="../../assets/icons/discovery.png" alt="Discovery Icon" class="top-box-icon">
+                    <span>Enumeration</span>
+                </div>
+                <div class="top-box" data-category-id="exploitation">
+                    <img src="../../assets/icons/exploit.png" alt="Exploitation Icon" class="top-box-icon">
+                    <span>Exploitation</span>
                 </div>
             </div>
+            <div class="bottom-box-container">
+                <!-- Templates will be dynamically added here -->
+            </div>
         </div>
     </div>
-    <div id="custom-alert" class="hide-visibility">
-        <div class="custom-alert-content">
-            <span id="custom-alert-message"></span>
-            <button onclick="closeAlert()">Tamam</button>
-        </div>
+</div>
+<div id="custom-alert" class="hide-visibility">
+    <div class="custom-alert-content">
+        <span id="custom-alert-message"></span>
+        <button onclick="closeAlert()">Tamam</button>
     </div>
-    <div id="loading" class="hide-visibility">
-        <img class="loading-icon" src="../../assets/icons/loading.gif" alt="Loading">
+</div>
+
+<div id="loading" class="hide-visibility">
+    <img class="loading-icon" src="../../assets/icons/loading.gif" alt="Loading">
+</div>
+
+<div id="report-modal" class="modal hide-visibility" style="display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.5);">
+    <div class="modal-content" style="background-color: #101721; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 50%; text-align: center; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);">
+        <span class="close-button" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+        <p style="margin-bottom: 20px;">Rapor oluşturuldu. Ne yapmak istersiniz?</p>
+        <button id="download-report-btn" style="margin-right: 10px; padding: 8px 16px; font-size: 13px; border-radius: 5px; border: 1px solid #888; background-color: #3a8d4a; color: white; cursor: pointer; font-family: 'DM Sans', sans-serif;">İndir</button>
+        <button id="view-report-btn" style="padding: 8px 16px; font-size: 13px; border-radius: 5px; border: 1px solid #888; background-color: #3a8d4a; color: white; cursor: pointer; font-family: 'DM Sans', sans-serif;">Görüntüle</button>
     </div>
-    <script src="test-builder.js"></script>
+</div>
+
+
+<script src="test-builder.js"></script>
 </body>
 
 </html>

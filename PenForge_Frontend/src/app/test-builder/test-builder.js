@@ -503,14 +503,14 @@ class DragAndDropManager {
         return tools;
     }
 
+
     startAttack() {
         const ipInput = document.getElementById('target-ip');
         const ipValue = ipInput.value.trim();
 
         if (ipValue === '') {
             this.showAlert("Lütfen bir IP adresi girin.");
-        }
-        else {
+        } else {
             const tools = this.getToolsFromCategories();
 
             if (tools.length === 0) {
@@ -536,17 +536,14 @@ class DragAndDropManager {
                         break;
                 }
 
+                const userDto = JSON.parse(localStorage.getItem('userDto'));
+                const userId = userDto.id;
+
                 const jsonData = {
-                    "userId": "1d537fe5-09e2-4886-8d5b-97391a1fa9f4"
+                    userId: userId,
+                    targetIP: ipValue,
+                    pentestScenario: templateKey
                 };
-
-                jsonData["targetIp"] = ipValue;
-
-                if (this.selectedTemplate !== null) {
-                    jsonData["pentestScenario"] = templateKey;
-                } else {
-                    jsonData["tools"] = tools;
-                }
 
                 const url = 'http://localhost:8888/api/v1/pentest-templates';
 
@@ -557,26 +554,53 @@ class DragAndDropManager {
                     },
                     body: JSON.stringify(jsonData)
                 }).then(response => {
-                    if (!response.ok) {
-                        this.showAlert("Beklenmedik sorun oluştu, işlemi yapmayı tekrar deneyin.");
-                    }
+                    console.log('Pentest template response:', response);
                     return response.json();
                 }).then(data => {
-                    this.showAlert(data);
+                    console.log('Pentest template data:', data);
+                    if (data.code === 200) {
+                        const reportId = data.data;
+                        return fetch('http://localhost:8888/api/v1/report-generate', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ reportId: reportId })
+                        });
+                    } else {
+                        this.showAlert("Bir hata oluştu.");
+                        throw new Error("Pentest işlemi başarısız oldu.");
+                    }
+                }).then(response => {
+                    console.log('Report generate response:', response);
+                    if (response.ok) {
+                        return response.blob();
+                    } else {
+                        this.showAlert("Beklenmedik sorun oluştu, işlemi yapmayı tekrar deneyin.");
+                        throw new Error("PDF oluşturulamadı.");
+                    }
+                }).then(blob => {
+                    console.log('Report blob:', blob);
+                    window.reportBlob = blob;
+                    this.showModal();
                 }).catch(error => {
-                    this.showAlert('Hata oluştu:', error);
+                    console.error('Hata oluştu:', error);
+                    this.showAlert('Hata oluştu: ' + error.message);
+                }).finally(() => {
+                    loadingIcon.classList.add('hide-visibility');
                 });
-
-                loadingIcon.classList.add('hide-visibility');
             }
         }
     }
+
+
+
+
 }
 
 function closeAlert() {
     document.getElementById('custom-alert').classList.add('hide-visibility');
 }
-
 document.addEventListener("DOMContentLoaded", () => {
     const manager = new DragAndDropManager();
 
@@ -588,6 +612,22 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("start-attack-link").addEventListener("click", function (event) {
         event.preventDefault();
         manager.startAttack();
+    });
+
+    // Corrected query selectors for buttons
+    document.getElementById('download-report-btn').addEventListener('click', function (event) {
+        event.preventDefault();
+        manager.downloadReport();
+    });
+
+    document.getElementById('view-report-btn').addEventListener('click', function (event) {
+        event.preventDefault();
+        manager.viewReport();
+    });
+
+    document.querySelector("#report-modal .close-button").addEventListener('click', function (event) {
+        event.preventDefault();
+        manager.closeModal();
     });
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -611,3 +651,44 @@ document.addEventListener("DOMContentLoaded", () => {
         Sürüklediğiniz araçları farenin sağ tuşuyla kategoriden çıkarabilirsiniz.");
     });
 });
+
+// Define modal functions
+function showModal() {
+    const modal = document.getElementById('report-modal');
+    if (modal) {
+        modal.classList.remove('hide-visibility');
+        modal.style.display = 'block';
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('report-modal');
+    if (modal) {
+        modal.classList.add('hide-visibility');
+        modal.style.display = 'none';
+    }
+}
+
+function downloadReport() {
+    const url = window.URL.createObjectURL(window.reportBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'report.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+    closeModal();
+}
+
+function viewReport() {
+    const url = window.URL.createObjectURL(window.reportBlob);
+    window.open(url);
+    closeModal();
+}
+
+// Ensure DragAndDropManager can call showModal
+DragAndDropManager.prototype.showModal = showModal;
+DragAndDropManager.prototype.closeModal = closeModal;
+DragAndDropManager.prototype.downloadReport = downloadReport;
+DragAndDropManager.prototype.viewReport = viewReport;

@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/ordersixtyfix/PenForge_ElectronJS_Frontend#readme",
   "devDependencies": {
-    "electron": "^30.0.4",
+    "electron": "^30.0.8",
     "nodemon": "^3.1.0"
   },
   "dependencies": {
