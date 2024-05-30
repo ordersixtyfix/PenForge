@@ -1,4 +1,4 @@
-package org.penforge.backend.forgotPassword;
+package org.penforge.backend.forgotpassword;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

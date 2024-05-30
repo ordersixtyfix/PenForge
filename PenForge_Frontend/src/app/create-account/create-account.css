@@ -108,3 +108,10 @@ button:hover {
 .link-container a:hover {
     text-decoration: underline;
 }
+
+.input-group input[type="file"] {
+    padding: 5px;
+    border: none;
+    background-color: #fff;
+    font-family: "DM Sans", sans-serif;
+}

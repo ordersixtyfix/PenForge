@@ -1,4 +1,4 @@
-package org.penforge.backend.forgotPassword;
+package org.penforge.backend.forgotpassword;
 
 import lombok.AllArgsConstructor;
 import org.penforge.backend.common.GenericResponse;
