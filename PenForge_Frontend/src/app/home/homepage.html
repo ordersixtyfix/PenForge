@@ -12,7 +12,7 @@
 <body>
 <div class="sidebar">
     <div class="profile">
-        <img src="../../assets/icons/bobfaruk.png" alt="Profil Resmi" class="profile-pic">
+        <img src="../../assets/icons/bobfaruk.png" id="profile-pic" alt="Profil Resmi" class="profile-pic" >
         <p>Merhaba, <span id="user-name">Employee Name</span></p>
     </div>
     <nav class="navigation">
@@ -53,7 +53,7 @@
             <span class="metric-number">12</span>
         </div>
         <div class="metric-item">
-            <span class="metric-label">Toplam Zaafiyetli Hedef</span>
+            <span class="metric-label">Zaafiyetli Hedef</span>
             <span class="metric-number">26</span>
         </div>
         <div class="metric-item">
@@ -67,13 +67,13 @@
     </div>
     <div class="charts-section">
         <div class="chart-item">
-            <h5>Zaafiyetli Portların Dağılımı</h5>
+            <h3>Zaafiyetli Portların Dağılımı</h3>
             <div class="chart" id="vulnerability-port-distribution-chart">
                 <canvas id="vulnerabilityPortDistributionChart"></canvas>
             </div>
         </div>
         <div class="chart-item">
-            <h5>Port Durumları</h5>
+            <h3>Port Durumları</h3>
             <div class="chart" id="port-status-chart">
                 <canvas id="portStatusChart"></canvas>
             </div>
@@ -81,22 +81,25 @@
     </div>
     <div class="activities-section">
         <div class="activities-item">
-            <h5>Son Aktiviteler</h5>
-            <ul class="activities-list">
-                <!-- Recent activities will be dynamically added here -->
-            </ul>
-        </div>
-        <div class="notifications-item">
-            <h5>Bildirimler</h5>
-            <ul class="notifications-list">
-                <!-- Notifications will be dynamically added here -->
-            </ul>
+            <h5>Aktif Hedefler</h5>
+            <table class="scan-table">
+                <thead>
+                <tr>
+                    <th>IP</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Table rows will be added dynamically using JavaScript -->
+                </tbody>
+            </table>
+            <a href="../targets/targets.html" class="view-all-link">Tümünü Gör</a>
         </div>
     </div>
 </div>
 
 
-// Kullanıcı adını çekiyor dokunmayın
+// userdto çekiyor dokunmayın
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         const userDtoString = localStorage.getItem('userDto');
@@ -106,6 +109,13 @@
                 const userDto = JSON.parse(userDtoString);
                 if (userDto) {
                     document.getElementById('user-name').textContent = `${userDto.firstName} ${userDto.lastName}`;
+                    const profileImage = document.getElementById('profile-pic');
+                    if (userDto.profilePictureUrl) {
+                        const imageUrl = `http://localhost:8888/api/v1/files/${userDto.profilePictureUrl}`;
+                        console.log('Profile Image URL:', imageUrl); // Log the URL
+                        profileImage.src = imageUrl;
+                    }
+
                 }
             } catch (e) {
                 console.error('Invalid JSON in local storage:', e);

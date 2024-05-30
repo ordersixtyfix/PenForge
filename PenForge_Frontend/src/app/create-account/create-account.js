@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Add event listener to form submission to trigger onSubmit function
     document.querySelector('.user-form').addEventListener('submit', onSubmit);
 });
 
@@ -13,24 +12,22 @@ function onSubmit(event) {
     const lastName = document.getElementById('lastname').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const skillLevel = document.querySelector('input[name="skill_level"]:checked').value;
+    const appUserLevel = document.querySelector('input[name="skill_level"]:checked').value;
+    const profilePicture = document.getElementById('profile-picture').files[0];
 
     // Prepare the data object
-    const data = {
-        firstName: firstName,
-        lastName: lastName,
-        password: password,
-        email: email,
-        appUserLevel: skillLevel
-    };
+    const formData = new FormData();
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('appUserLevel', appUserLevel); // Update this key to match backend expectation
+    formData.append('profilePicture', profilePicture);
 
     // Send registration request to server
     fetch('http://localhost:8888/api/v1/registration', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+        body: formData
     })
         .then(response => {
             if (!response.ok) {
@@ -41,10 +38,10 @@ function onSubmit(event) {
         .then(data => {
             console.log('Successful:', data);
             if (data.code === 200) {
-
                 document.getElementById('message2').innerText = "Kullanıcı Oluşturuldu";
             } else {
-                document.getElementById('message1').innerText = "Kullanıcı Oluşturulamadı";            }
+                document.getElementById('message1').innerText = "Kullanıcı Oluşturulamadı";
+            }
         })
         .catch((error) => {
             console.error('Error:', error);

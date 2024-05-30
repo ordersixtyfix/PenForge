@@ -72,7 +72,6 @@ body {
     display: block;
 }
 
-
 /* Main Content Styles */
 .main-content {
     margin-left: 280px;
@@ -81,7 +80,7 @@ body {
 
 .metrics {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
@@ -90,10 +89,15 @@ body {
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    width: 20%;
+    flex: 1;
+    margin-right: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.metric-item:last-child {
+    margin-right: 0;
 }
 
 .metric-number {
@@ -145,48 +149,71 @@ body {
     margin-top: 20px;
 }
 
-.activities-item, .notifications-item {
+.activities-item {
     background-color: #011520;
     padding: 20px;
     border-radius: 10px;
     flex: 1;
-    margin-right: 20px;
     display: flex;
     flex-direction: column;
 }
 
-.activities-item:last-child, .notifications-item:last-child {
-    margin-right: 0;
-}
-
-.activities-list, .notifications-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    flex-grow: 1;
-}
-
-.activities-list li, .notifications-list li {
-    padding: 10px;
-    border-bottom: 1px solid #35515E;
-    color: white;
-}
-.footer-logo {
-    text-align: center;
-    padding: 10px;
-    background-color: #011520;
-}
-
-.footer-logo-pic {
-    width: 120px;
-    margin: auto;
-    display: block;
-}
-
-.chart-item h5 {
+.activities-item h5 {
     margin-top: 0;
 }
+
+/* Table styles */
+.scan-table {
+    width: 90%; /* Make the table slightly narrower */
+    border-collapse: collapse;
+    margin: 20px auto; /* Center the table and add top margin */
+    overflow-x: auto;
+    font-size: 14px; /* Make the text slightly smaller */
+}
+
+
+.scan-table th, .scan-table td {
+    border: 1px solid #35515E;
+    padding: 6px; /* Reduce padding for smaller cells */
+    text-align: left;
+}
+
+.scan-table th {
+    background-color: #1B5D85;
+    color: white;
+}
+
+.scan-table a {
+    color: #1B5D85;
+    text-decoration: none;
+}
+
+.scan-table a:hover {
+    text-decoration: underline;
+}
+
+.status-dot {
+    height: 10px;
+    width: 10px;
+    background-color: #4CAF50; /* Green color */
+    border-radius: 50%;
+    display: inline-block;
+}
+
 
 .activities-item h5, .notifications-item h5 {
     margin-top: 0;
 }
+
+/* View All Link */
+.view-all-link {
+    margin-top: 15px;
+    color: #1B5D85;
+    text-decoration: none;
+    text-align: right;
+}
+
+.view-all-link:hover {
+    text-decoration: underline;
+}
+
