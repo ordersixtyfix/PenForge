@@ -40,6 +40,10 @@ body {
     height: calc(100vh - 100px);
 }
 
+html{
+    font-family: "DM Sans", sans-serif;
+}
+
 /* Input Styles */
 input[type="text"] {
     width: 100%;
