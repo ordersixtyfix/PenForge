@@ -54,10 +54,10 @@
     <table class="scan-table">
         <thead>
         <tr>
-            <th>Hedef</th>
-            <th>Test tarihi</th>
-            <th>Sonuç</th>
-            <th>İşlemler</th>
+            <th>Hedef IP</th>
+            <th>Test Tarihi</th>
+            <th>Zaafiyetli Port</th>
+            <th>Raporu İndir</th>
         </tr>
         </thead>
         <tbody>
@@ -91,10 +91,6 @@
         }
     });
 
-    document.getElementById('logoutButton').addEventListener('click', function () {
-        localStorage.removeItem('userDto'); // userDto'yu localStorage'dan kaldır
-        window.location.href = 'login.html'; // Giriş sayfasına yönlendir
-    });
 </script>
 <script src="previous-scan.js"></script>
 </body>
