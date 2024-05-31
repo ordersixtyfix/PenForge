@@ -8,11 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="homepage.css">
     <title>PenForge Kullanıcı Paneli</title>
+    <style>
+        .profile {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .profile.loaded {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
 <div class="sidebar">
-    <div class="profile">
-        <img src="../../assets/icons/bobfaruk.png" id="profile-pic" alt="Profil Resmi" class="profile-pic" >
+    <div class="profile" id="profile-container">
+        <img src="" id="profile-pic" alt="Profil Resmi" class="profile-pic">
         <p>Merhaba, <span id="user-name">Employee Name</span></p>
     </div>
     <nav class="navigation">
@@ -50,15 +59,15 @@
     <div class="metrics">
         <div class="metric-item">
             <span class="metric-label">Toplam Hedef</span>
-            <span class="metric-number">12</span>
+            <span class="metric-number">15</span>
         </div>
         <div class="metric-item">
             <span class="metric-label">Zaafiyetli Hedef</span>
-            <span class="metric-number">26</span>
+            <span class="metric-number">10</span>
         </div>
         <div class="metric-item">
             <span class="metric-label">Toplam Açık Port</span>
-            <span class="metric-number">32</span>
+            <span class="metric-number">60</span>
         </div>
         <div class="metric-item">
             <span class="metric-label">Toplam Test</span>
@@ -86,7 +95,7 @@
                 <thead>
                 <tr>
                     <th>IP</th>
-                    <th>Actions</th>
+                    <th>Aksiyon</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -98,37 +107,8 @@
     </div>
 </div>
 
-
-// userdto çekiyor dokunmayın
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const userDtoString = localStorage.getItem('userDto');
-
-        if (userDtoString) {
-            try {
-                const userDto = JSON.parse(userDtoString);
-                if (userDto) {
-                    document.getElementById('user-name').textContent = `${userDto.firstName} ${userDto.lastName}`;
-                    const profileImage = document.getElementById('profile-pic');
-                    if (userDto.profilePictureUrl) {
-                        const imageUrl = `http://localhost:8888/api/v1/files/${userDto.profilePictureUrl}`;
-                        console.log('Profile Image URL:', imageUrl); // Log the URL
-                        profileImage.src = imageUrl;
-                    }
-
-                }
-            } catch (e) {
-                console.error('Invalid JSON in local storage:', e);
-            }
-        } else {
-            console.log('Kullanıcı bilgileri bulunamadı');
-        }
-    });
-</script>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="homepage.js"></script>
-
 
 </body>
 </html>

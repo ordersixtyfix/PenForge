@@ -3,83 +3,91 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="targets.css">
     <title>PenForge Kullanıcı Paneli - Hedefler</title>
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="profile">
-            <img src="../../assets/icons/bobfaruk.png" alt="Profil Resmi" class="profile-pic">
-            <p>Merhaba, <span id="user-name">Employee Name</span></p>
-        </div>
-        <nav class="navigation">
-            <a href="../home/homepage.html" class="nav-item">
-                <img src="../../assets/icons/dash.png" alt="" class="nav-icon">
-                Gösterge Paneli
-            </a>
-            <a href="../test-builder/test-builder.html" class="nav-item">
-                <img src="../../assets/icons/testrail.png" alt="" class="nav-icon">
-                Test Paneli
-            </a>
-            <a href="../previous-scan/previous-scan.html" class="nav-item">
-                <img src="../../assets/icons/radar.png" alt="" class="nav-icon">
-                Test Geçmişi
-            </a>
-            <a href="../targets/targets.html" class="nav-item">
-                <img src="../../assets/icons/aim.png" alt="" class="nav-icon">
-                Aktif Hedefler
-            </a>
-            <a href="../settings/settings.html" class="nav-item">
-                <img src="../../assets/icons/slider.png" alt="" class="nav-icon">
-                Ayarlar
-            </a>
-            <a href="#" id="logoutButton" class="nav-item">
-                <img src="../../assets/icons/logout.png" alt="" class="nav-icon">
-                Çıkış
-            </a>
-        </nav>
-        <div class="footer-logo">
-            <img src="../../assets/logo/PenForge_Logo_Light.png" alt="PenForge Logo" class="footer-logo-pic">
-        </div>
+<div class="sidebar">
+    <div class="profile">
+        <img src="../../assets/icons/bobfaruk.png" id="profile-pic" alt="Profil Resmi" class="profile-pic">
+        <p>Merhaba, <span id="user-name">Employee Name</span></p>
     </div>
-
-    <div class="main-content">
-        <h1>Aktif Hedefler</h1>
-        <p id="scan-info">Aktif hedefler yükleniyor...</p>
-        <table class="scan-table">
-            <thead>
-                <tr>
-                    <th>IP</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Table rows will be added dynamically using JavaScript -->
-            </tbody>
-        </table>
+    <nav class="navigation">
+        <a href="../home/homepage.html" class="nav-item">
+            <img src="../../assets/icons/dash.png" alt="" class="nav-icon">
+            Gösterge Paneli
+        </a>
+        <a href="../test-builder/test-builder.html" class="nav-item">
+            <img src="../../assets/icons/testrail.png" alt="" class="nav-icon">
+            Test Paneli
+        </a>
+        <a href="../previous-scan/previous-scan.html" class="nav-item">
+            <img src="../../assets/icons/radar.png" alt="" class="nav-icon">
+            Test Geçmişi
+        </a>
+        <a href="../targets/targets.html" class="nav-item">
+            <img src="../../assets/icons/aim.png" alt="" class="nav-icon">
+            Aktif Hedefler
+        </a>
+        <a href="../settings/settings.html" class="nav-item">
+            <img src="../../assets/icons/slider.png" alt="" class="nav-icon">
+            Ayarlar
+        </a>
+        <a href="#" id="logoutButton" class="nav-item">
+            <img src="../../assets/icons/logout.png" alt="" class="nav-icon">
+            Çıkış
+        </a>
+    </nav>
+    <div class="footer-logo">
+        <img src="../../assets/logo/PenForge_Logo_Light.png" alt="PenForge Logo" class="footer-logo-pic">
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const userDtoString = localStorage.getItem('userDto');
+</div>
 
-            if (userDtoString) {
-                try {
-                    const userDto = JSON.parse(userDtoString);
-                    if (userDto) {
-                        document.getElementById('user-name').textContent = `${userDto.firstName} ${userDto.lastName}`;
+<div class="main-content">
+    <h1>Aktif Hedefler</h1>
+    <p id="scan-info">Aktif hedefler yükleniyor...</p>
+    <table class="scan-table">
+        <thead>
+        <tr>
+            <th>IP</th>
+            <th>Aksiyon</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const userDtoString = localStorage.getItem('userDto');
+
+        if (userDtoString) {
+            try {
+                const userDto = JSON.parse(userDtoString);
+                if (userDto) {
+                    document.getElementById('user-name').textContent = `${userDto.firstName} ${userDto.lastName}`;
+                    const profileImage = document.getElementById('profile-pic');
+                    if (userDto.profilePictureUrl) {
+                        const imageUrl = `http://localhost:8888/api/v1/files/${userDto.profilePictureUrl}`;
+                        profileImage.src = imageUrl;
                     }
-                } catch (e) {
-                    console.error('Invalid JSON in local storage:', e);
                 }
-            } else {
-                console.log('Kullanıcı bilgileri bulunamadı');
+            } catch (e) {
+                console.error('Invalid JSON in local storage:', e);
             }
-        });
-    </script>
+        } else {
+            console.log('Kullanıcı bilgileri bulunamadı');
+        }
+    });
+</script>
 
-    <script src="targets.js"></script>
+<script src="targets.js"></script>
 </body>
 
 </html>

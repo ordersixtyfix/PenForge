@@ -4,94 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <title>PenForge - Ayarlar</title>
     <link rel="stylesheet" href="settings.css">
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="profile">
-            <img src="../../assets/icons/bobfaruk.png" alt="Profil Resmi" class="profile-pic">
-            <p>Merhaba, <span id="user-name">Employee Name</span></p>
-        </div>
-        <nav class="navigation">
-            <a href="../home/homepage.html" class="nav-item">
-                <img src="../../assets/icons/dash.png" alt="" class="nav-icon">
-                Gösterge Paneli
-            </a>
-            <a href="../test-builder/test-builder.html" class="nav-item">
-                <img src="../../assets/icons/testrail.png" alt="" class="nav-icon">
-                Test Paneli
-            </a>
-            <a href="../previous-scan/previous-scan.html" class="nav-item">
-                <img src="../../assets/icons/radar.png" alt="" class="nav-icon">
-                Test Geçmişi
-            </a>
-            <a href="../targets/targets.html" class="nav-item">
-                <img src="../../assets/icons/aim.png" alt="" class="nav-icon">
-                Aktif Hedefler
-            </a>
-            <a href="#" class="nav-item">
-                <img src="../../assets/icons/slider.png" alt="" class="nav-icon">
-                Ayarlar
-            </a>
-            <a href="#" id="logoutButton" class="nav-item">
-                <img src="../../assets/icons/logout.png" alt="" class="nav-icon">
-                Çıkış
-            </a>
-        </nav>
-        <div class="footer-logo">
-            <img src="../../assets/logo/PenForge_Logo_Light.png" alt="PenForge Logo" class="footer-logo-pic">
-        </div>
+<div class="sidebar">
+    <div class="profile" id="profile-container">
+        <img src="" id="profile-pic" alt="Profil Resmi" class="profile-pic">
+        <p>Merhaba, <span id="user-name">Employee Name</span></p>
     </div>
-    <div class="main-content">
-        <h1>Ayarlar</h1>
-        <div class="profile-info">
-            <div class="profile-picture">
-                <img src="../../assets/icons/bobfaruk.png" alt="Profile Picture" class="profile-pic">
-                <div class="upload-overlay">
-                    <span class="plus-icon">+</span>
-                    <input type="file" id="profile-upload" accept="image/*">
-                </div>
-            </div>
-            <div class="profile-details">
-                <div class="profile-detail">
-                    <span class="label">Kullanıcı adı:</span>
-                    <span id="username">Bob Marley Faruk</span>
-                    <button id="edit-username">Düzenle</button>
-                    <div id="username-edit" class="edit-section" style="display: none;">
-                        <input type="text" id="new-username" placeholder="Yeni kullanıcı adı">
-                        <button id="confirm-username">Onayla</button>
-                    </div>
-                </div>
-                <div class="profile-detail">
-                    <span class="label">E-posta:</span>
-                    <span id="email">bobmarleyfaruk@icloud.com</span>
-                    <button id="edit-email">Düzenle</button>
-                    <div id="email-edit" class="edit-section" style="display: none;">
-                        <input type="email" id="new-email" placeholder="Yeni e-posta">
-                        <button id="confirm-email">Onayla</button>
-                    </div>
-                </div>
-                <div class="profile-detail">
-                    <span class="label">Şifre:</span>
-                    <span id="password">**********</span>
-                    <button id="edit-password">Şifre değiştir</button>
-                    <div id="password-edit" class="edit-section" style="display: none;">
-                        <input type="password" id="new-password" placeholder="Yeni şifre">
-                        <button id="confirm-password">Onayla</button>
-                    </div>
-                </div>
+    <nav class="navigation">
+        <a href="../home/homepage.html" class="nav-item">
+            <img src="../../assets/icons/dash.png" alt="" class="nav-icon">
+            Gösterge Paneli
+        </a>
+        <a href="../test-builder/test-builder.html" class="nav-item">
+            <img src="../../assets/icons/testrail.png" alt="" class="nav-icon">
+            Test Paneli
+        </a>
+        <a href="../previous-scan/previous-scan.html" class="nav-item">
+            <img src="../../assets/icons/radar.png" alt="" class="nav-icon">
+            Test Geçmişi
+        </a>
+        <a href="../targets/targets.html" class="nav-item">
+            <img src="../../assets/icons/aim.png" alt="" class="nav-icon">
+            Aktif Hedefler
+        </a>
+        <a href="#" class="nav-item">
+            <img src="../../assets/icons/slider.png" alt="" class="nav-icon">
+            Ayarlar
+        </a>
+        <a href="#" id="logoutButton" class="nav-item">
+            <img src="../../assets/icons/logout.png" alt="" class="nav-icon">
+            Çıkış
+        </a>
+    </nav>
+    <div class="footer-logo">
+        <img src="../../assets/logo/PenForge_Logo_Light.png" alt="PenForge Logo" class="footer-logo-pic">
+    </div>
+</div>
+<div class="main-content">
+    <h1>Ayarlar</h1>
+    <div class="profile-info">
+        <div class="profile-picture">
+            <img src="" id="profile-pic2" alt="Profile Picture" class="profile-pic">
+            <div class="upload-overlay">
+                <span class="plus-icon">+</span>
+                <input type="file" id="profile-upload" accept="image/*">
             </div>
         </div>
-        <div id="custom-alert" class="hide-visibility">
-            <div class="custom-alert-content">
-                <span id="custom-alert-message"></span>
-                <button onclick="closeAlert()">Tamam</button>
+        <div class="profile-details">
+            <div class="profile-detail">
+                <span class="label">E-posta:</span>
+                <span id="email">bobmarleyfaruk@icloud.com</span>
+                <button id="edit-email">Düzenle</button>
+                <div id="email-edit" class="edit-section" style="display: none;">
+                    <input type="email" id="new-email" placeholder="Yeni e-posta">
+                    <button id="confirm-email">Onayla</button>
+                </div>
+            </div>
+            <div class="profile-detail">
+                <span class="label">Şifre:</span>
+                <span id="password">**********</span>
+                <button id="edit-password">Şifre değiştir</button>
+                <div id="password-edit" class="edit-section" style="display: none;">
+                    <input type="password" id="new-password" placeholder="Yeni şifre">
+                    <button id="confirm-password">Onayla</button>
+                </div>
             </div>
         </div>
     </div>
-    <script src="settings.js"></script>
+    <div id="custom-alert" class="hide-visibility">
+        <div class="custom-alert-content">
+            <span id="custom-alert-message"></span>
+            <button onclick="closeAlert()">Tamam</button>
+        </div>
+    </div>
+</div>
+
+<script src="settings.js"></script>
 </body>
 
 </html>

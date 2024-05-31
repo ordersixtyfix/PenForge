@@ -1,13 +1,7 @@
-document.getElementById('logoutButton').addEventListener('click', async function () {
-    const response = await window.electronAPI.logout();
-    if (response.error) {
-        alert("Çıkış işlemi sırasında bir hata oluştu: " + response.error);
-    } else if (response.code === 200) {
-        alert("Oturum başarıyla kapatıldı.");
-        window.location.href = 'login.html';
-    } else {
-        alert("Çıkış işlemi sırasında beklenmeyen bir hata oluştu.");
-    }
+
+document.getElementById('logoutButton').addEventListener('click', function () {
+    localStorage.removeItem('userDto'); // userDto'yu localStorage'dan kaldır
+    window.location.href = '../login/login.html'; // Giriş sayfasına yönlendir
 });
 
 // Example chart initialization code
@@ -78,11 +72,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (userDto) {
                 document.getElementById('user-name').textContent = `${userDto.firstName} ${userDto.lastName}`;
                 const profileImage = document.getElementById('profile-pic');
-                if (userDto.profilePictureUrl) {
-                    const imageUrl = `http://localhost:8888/api/v1/files/${userDto.profilePictureUrl}`;
-                    console.log('Profile Image URL:', imageUrl); // Log the URL
-                    profileImage.src = imageUrl;
+                if (userDto.profileImage) {
+                    profileImage.src = userDto.profileImage;
                 }
+                document.getElementById('profile-container').classList.add('loaded');
             }
         } catch (e) {
             console.error('Invalid JSON in local storage:', e);
