@@ -125,3 +125,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     fetchIPAddresses();
 });
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const userDtoString = localStorage.getItem('userDto');
+
+    if (userDtoString) {
+        try {
+            const userDto = JSON.parse(userDtoString);
+            if (userDto) {
+                document.getElementById('user-name').textContent = `${userDto.firstName} ${userDto.lastName}`;
+                const profileImage = document.getElementById('profile-pic');
+                if (userDto.profilePictureUrl) {
+                    const imageUrl = `http://localhost:8888/api/v1/files/${userDto.profilePictureUrl}`;
+                    console.log('Profile Image URL:', imageUrl); // Log the URL
+                    profileImage.src = imageUrl;
+                }
+
+            }
+        } catch (e) {
+            console.error('Invalid JSON in local storage:', e);
+        }
+    } else {
+        console.log('Kullanıcı bilgileri bulunamadı');
+    }
+});

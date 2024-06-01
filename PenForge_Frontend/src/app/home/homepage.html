@@ -10,7 +10,7 @@
 <div class="sidebar">
     <div class="profile">
         <img src="../../assets/icons/bobfaruk.png" id="profile-pic" alt="Profil Resmi" class="profile-pic" >
-        <p>Merhaba, <span id="user-name">Employee Name</span></p>
+        <p>Merhaba, <span id="user-name"></span></p>
     </div>
     <nav class="navigation">
         <a href="../home/homepage.html" class="nav-item">
@@ -95,33 +95,6 @@
     </div>
 </div>
 
-
-// userdto çekiyor dokunmayın
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const userDtoString = localStorage.getItem('userDto');
-
-        if (userDtoString) {
-            try {
-                const userDto = JSON.parse(userDtoString);
-                if (userDto) {
-                    document.getElementById('user-name').textContent = `${userDto.firstName} ${userDto.lastName}`;
-                    const profileImage = document.getElementById('profile-pic');
-                    if (userDto.profilePictureUrl) {
-                        const imageUrl = `http://localhost:8888/api/v1/files/${userDto.profilePictureUrl}`;
-                        console.log('Profile Image URL:', imageUrl); // Log the URL
-                        profileImage.src = imageUrl;
-                    }
-
-                }
-            } catch (e) {
-                console.error('Invalid JSON in local storage:', e);
-            }
-        } else {
-            console.log('Kullanıcı bilgileri bulunamadı');
-        }
-    });
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="homepage.js"></script>
