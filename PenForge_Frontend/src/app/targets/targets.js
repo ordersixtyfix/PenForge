@@ -1,3 +1,8 @@
+document.getElementById('logoutButton').addEventListener('click', function () {
+    localStorage.removeItem('userDto');
+    window.location.href = '../login/login.html';
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     let ipAddresses = [];
 

@@ -1,3 +1,34 @@
+document.getElementById('logoutButton').addEventListener('click', function () {
+    localStorage.removeItem('userDto');
+    window.location.href = '../login/login.html';
+});
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const userDtoString = localStorage.getItem('userDto');
+
+    if (userDtoString) {
+        try {
+            const userDto = JSON.parse(userDtoString);
+            if (userDto) {
+                document.getElementById('user-name').textContent = `${userDto.firstName} ${userDto.lastName}`;
+                document.getElementById('email').textContent = userDto.email;
+                const profileImage = document.getElementById('profile-pic');
+                const profileImage2 = document.getElementById('profile-pic2');
+                if (userDto.profileImage) {
+                    profileImage.src = userDto.profileImage;
+                    profileImage2.src = userDto.profileImage;
+
+                }
+            }
+        } catch (e) {
+            console.error('Invalid JSON in local storage:', e);
+        }
+    } else {
+        console.log('Kullanıcı bilgileri bulunamadı');
+    }
+
+});
+
 window.addEventListener("DOMContentLoaded", () => {
     document.getElementById('profile-upload').addEventListener('change', function (event) {
         const file = event.target.files[0];
@@ -5,28 +36,18 @@ window.addEventListener("DOMContentLoaded", () => {
             const reader = new FileReader();
             reader.onload = function (e) {
                 document.querySelector('.profile-pic').src = e.target.result;
-                document.querySelector('.profile-picture img').src = e.target.result;
+                const userDtoString = localStorage.getItem('userDto');
+                if (userDtoString) {
+                    try {
+                        const userDto = JSON.parse(userDtoString);
+                        userDto.profileImage = e.target.result;
+                        localStorage.setItem('userDto', JSON.stringify(userDto));
+                    } catch (e) {
+                        console.error('Invalid JSON in local storage:', e);
+                    }
+                }
             }
             reader.readAsDataURL(file);
-        }
-    });
-
-    document.getElementById('edit-username').addEventListener('click', function () {
-        const editSection = document.getElementById('username-edit');
-        const editButton = document.getElementById('edit-username');
-        const isVisible = editSection.style.display === 'block';
-        editSection.style.display = isVisible ? 'none' : 'block';
-        editButton.style.display = isVisible ? 'inline-block' : 'none';
-    });
-
-    document.getElementById('confirm-username').addEventListener('click', function () {
-        const newUsername = document.getElementById('new-username').value;
-        if (newUsername) {
-            document.getElementById('username').innerText = newUsername;
-            document.getElementById('username-edit').style.display = 'none';
-            document.getElementById('edit-username').style.display = 'inline-block';
-
-            showAlert("Kullanıcı adınız başarıyla değiştirildi.");
         }
     });
 
@@ -69,13 +90,6 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     document.addEventListener('click', function (event) {
-        const usernameEditSection = document.getElementById('username-edit');
-        const usernameEditButton = document.getElementById('edit-username');
-        if (usernameEditSection.style.display === 'block' && !usernameEditSection.contains(event.target) && !usernameEditButton.contains(event.target)) {
-            usernameEditSection.style.display = 'none';
-            usernameEditButton.style.display = 'inline-block';
-        }
-
         const emailEditSection = document.getElementById('email-edit');
         const emailEditButton = document.getElementById('edit-email');
         if (emailEditSection.style.display === 'block' && !emailEditSection.contains(event.target) && !emailEditButton.contains(event.target)) {

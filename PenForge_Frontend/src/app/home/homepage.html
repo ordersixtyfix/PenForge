@@ -2,15 +2,27 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="homepage.css">
     <title>PenForge Kullanıcı Paneli</title>
+    <style>
+        .profile {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .profile.loaded {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
 <div class="sidebar">
-    <div class="profile">
-        <img src="../../assets/icons/bobfaruk.png" id="profile-pic" alt="Profil Resmi" class="profile-pic" >
-        <p>Merhaba, <span id="user-name"></span></p>
+    <div class="profile" id="profile-container">
+        <img src="" id="profile-pic" alt="Profil Resmi" class="profile-pic">
+        <p>Merhaba, <span id="user-name">Employee Name</span></p>
     </div>
     <nav class="navigation">
         <a href="../home/homepage.html" class="nav-item">
@@ -47,15 +59,15 @@
     <div class="metrics">
         <div class="metric-item">
             <span class="metric-label">Toplam Hedef</span>
-            <span class="metric-number">12</span>
+            <span class="metric-number">15</span>
         </div>
         <div class="metric-item">
             <span class="metric-label">Zaafiyetli Hedef</span>
-            <span class="metric-number">26</span>
+            <span class="metric-number">10</span>
         </div>
         <div class="metric-item">
             <span class="metric-label">Toplam Açık Port</span>
-            <span class="metric-number">32</span>
+            <span class="metric-number">60</span>
         </div>
         <div class="metric-item">
             <span class="metric-label">Toplam Test</span>
@@ -83,7 +95,7 @@
                 <thead>
                 <tr>
                     <th>IP</th>
-                    <th>Actions</th>
+                    <th>Aksiyon</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -95,10 +107,7 @@
     </div>
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="homepage.js"></script>
-
-
 </body>
 </html>

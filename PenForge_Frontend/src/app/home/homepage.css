@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "DM Sans", sans-serif;
     background-color: #031F30;
     color: white;
 }
@@ -31,6 +31,11 @@ body {
     height: 70px;
     border-radius: 50%;
     margin-bottom: 10px;
+    transition: transform 0.3s;
+}
+
+.profile-pic:hover {
+    transform: scale(1.1);
 }
 
 .navigation {
@@ -164,17 +169,16 @@ body {
 
 /* Table styles */
 .scan-table {
-    width: 90%; /* Make the table slightly narrower */
+    width: 90%;
     border-collapse: collapse;
-    margin: 20px auto; /* Center the table and add top margin */
+    margin: 20px auto;
     overflow-x: auto;
-    font-size: 14px; /* Make the text slightly smaller */
+    font-size: 14px;
 }
-
 
 .scan-table th, .scan-table td {
     border: 1px solid #35515E;
-    padding: 6px; /* Reduce padding for smaller cells */
+    padding: 6px;
     text-align: left;
 }
 

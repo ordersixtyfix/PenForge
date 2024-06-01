@@ -2,6 +2,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('loginButton').addEventListener('click', onLogin);
 });
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('loginButton').addEventListener('click', onLogin);
+});
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('loginButton').addEventListener('click', onLogin);
+});
+
 function onLogin() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -26,8 +34,24 @@ function onLogin() {
         })
         .then(data => {
             if (data.code === 200) {
-                localStorage.setItem('userDto', JSON.stringify(data.data));
-                window.location.href = '../home/homepage.html';
+                const userDto = data.data;
+                const profilePictureUrl = userDto.profilePictureUrl ? `http://localhost:8888/api/v1/files/${userDto.profilePictureUrl}` : null;
+                if (profilePictureUrl) {
+                    fetch(profilePictureUrl)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            const reader = new FileReader();
+                            reader.onloadend = () => {
+                                userDto.profileImage = reader.result;
+                                localStorage.setItem('userDto', JSON.stringify(userDto));
+                                window.location.href = '../home/homepage.html';
+                            };
+                            reader.readAsDataURL(blob);
+                        });
+                } else {
+                    localStorage.setItem('userDto', JSON.stringify(userDto));
+                    window.location.href = '../home/homepage.html';
+                }
             } else {
                 console.log("Giriş başarısız");
             }
@@ -36,3 +60,5 @@ function onLogin() {
             console.error('Hata:', error);
         });
 }
+
+

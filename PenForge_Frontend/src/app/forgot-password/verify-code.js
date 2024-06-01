@@ -13,7 +13,6 @@ async function sendVerificationCode() {
     const code = document.getElementById('code').value;
     const errorMessage = document.getElementById('error-message');
 
-    // Önce hata mesajını temizle
     errorMessage.textContent = '';
 
     try {
