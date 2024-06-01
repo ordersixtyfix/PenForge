@@ -11,4 +11,6 @@ public class StatisticsData{
     private int vulnerableTargets;
     private int totalOpenPorts;
     private int totalTests;
+
+
 }
