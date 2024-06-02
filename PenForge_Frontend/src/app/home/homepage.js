@@ -1,71 +1,110 @@
-
 document.getElementById('logoutButton').addEventListener('click', function () {
     localStorage.removeItem('userDto'); // userDto'yu localStorage'dan kaldır
     window.location.href = '../login/login.html'; // Giriş sayfasına yönlendir
 });
 
-// Example chart initialization code
-const ctxVulnerabilityPortDistribution = document.getElementById('vulnerabilityPortDistributionChart').getContext('2d');
-const vulnerabilityPortDistributionChart = new Chart(ctxVulnerabilityPortDistribution, {
-    type: 'bar',
-    data: {
-        labels: ['HTTP/HTTPS', 'SMTP', 'FTP', 'SSH', 'SMB', 'DNS', 'Telnet', 'TFTP'],
-        datasets: [{
-            label: 'Zaafiyetli Portların Dağılımı',
-            data: [12, 19, 3, 5, 2, 3, 7, 8],
-            backgroundColor: ['#1B5D85', '#FC273F', '#FF9F40', '#9B59B6', '#4BC0C0', '#FFCE56', '#E7E9ED', '#21E3C2FF'],
-            hoverBackgroundColor: ['#1B5D85', '#FC273F', '#FF9F40', '#9B59B6', '#4BC0C0', '#FFCE56', '#E7E9ED', '#21E3C2FF']
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: true, // Ekran oranını koruyacak şekilde ayarlanmıştır
-        plugins: {
-            legend: {
-                position: 'null',
-            },
-            title: {
-                display: false,
-                text: 'Zaafiyetli Portların Dağılımı'
-            }
-        }
-    }
-});
+const userDtoString = localStorage.getItem('userDto');
 
-const ctxPortStatus = document.getElementById('portStatusChart').getContext('2d');
-const portStatusChart = new Chart(ctxPortStatus, {
-    type: 'pie',
-    data: {
-        labels: ['Open', 'Filtered', 'Closed'],
-        datasets: [{
-            label: 'Port Durumları',
-            data: [45, 25, 30],
-            backgroundColor: ['#12afe8', '#FC273F', '#FFCE56'],
-            hoverBackgroundColor: ['#12afe8', '#FC273F', '#FFCE56']
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: true, // Ekran oranını koruyacak şekilde ayarlanmıştır
-        plugins: {
-            legend: {
-                position: 'bottom',
-                labels: {
-                    padding: 20,
-                    usePointStyle: true
+const fetchStatistics = async (userId) => {
+    try {
+        const response = await fetch(`http://localhost:8888/api/v1/statistics?userId=${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        updateCharts(data.data); // Pass the data to the chart updating function
+        updateMetrics(data.data); // Update the metrics section with the received data
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+};
+
+const updateMetrics = (data) => {
+    document.getElementById('totalTargets').textContent = data.totalTargets;
+    document.getElementById('vulnerableTargets').textContent = data.vulnerableTargets;
+    document.getElementById('totalOpenPorts').textContent = data.totalOpenPorts;
+    document.getElementById('totalTests').textContent = data.totalTests;
+};
+
+const updateCharts = (data) => {
+    const ctxVulnerabilityPortDistribution = document.getElementById('vulnerabilityPortDistributionChart').getContext('2d');
+    const vulnerabilityPortDistributionChart = new Chart(ctxVulnerabilityPortDistribution, {
+        type: 'bar',
+        data: {
+            labels: ['HTTP/HTTPS', 'SMTP', 'FTP', 'SSH', 'SMB', 'DNS', 'Telnet', 'TFTP'],
+            datasets: [{
+                label: 'Zaafiyetli Portların Dağılımı',
+                data: [
+                    data.openPorts.http,
+                    data.openPorts.smtp,
+                    data.openPorts.ftp,
+                    data.openPorts.ssh,
+                    data.openPorts.smb,
+                    data.openPorts.dns,
+                    data.openPorts.telnet,
+                    data.openPorts.tftp
+                ],
+                backgroundColor: ['#1B5D85', '#FC273F', '#FF9F40', '#9B59B6', '#4BC0C0', '#FFCE56', '#E7E9ED', '#21E3C2FF'],
+                hoverBackgroundColor: ['#1B5D85', '#FC273F', '#FF9F40', '#9B59B6', '#4BC0C0', '#FFCE56', '#E7E9ED', '#21E3C2FF']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    position: 'null',
+                },
+                title: {
+                    display: false,
+                    text: 'Zaafiyetli Portların Dağılımı'
                 }
-            },
-            title: {
-                display: false,
-                text: 'Port Durumları'
             }
         }
-    }
-});
+    });
+
+    const ctxPortStatus = document.getElementById('portStatusChart').getContext('2d');
+    const portStatusChart = new Chart(ctxPortStatus, {
+        type: 'pie',
+        data: {
+            labels: ['Açık', 'Filtreli', 'Kapalı'],
+            datasets: [{
+                label: 'Port Durumları',
+                data: [
+                    data.portStatus.open,
+                    data.portStatus.filtered,
+                    data.portStatus.closed
+                ],
+                backgroundColor: ['#12afe8', '#FC273F', '#FFCE56'],
+                hoverBackgroundColor: ['#12afe8', '#FC273F', '#FFCE56']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true
+                    }
+                },
+                title: {
+                    display: false,
+                    text: 'Port Durumları'
+                }
+            }
+        }
+    });
+};
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    const userDtoString = localStorage.getItem('userDto');
-
     if (userDtoString) {
         try {
             const userDto = JSON.parse(userDtoString);
@@ -76,6 +115,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     profileImage.src = userDto.profileImage;
                 }
                 document.getElementById('profile-container').classList.add('loaded');
+
+                // Fetch statistics with userId
+                fetchStatistics(userDto.id);
             }
         } catch (e) {
             console.error('Invalid JSON in local storage:', e);
@@ -120,8 +162,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    const userDtoString = localStorage.getItem('userDto');
-
     if (userDtoString) {
         try {
             const userDto = JSON.parse(userDtoString);
@@ -138,7 +178,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         } catch (e) {
             console.error('Invalid JSON in local storage:', e);
         }
-    } else {
-        console.log('Kullanıcı bilgileri bulunamadı');
     }
 });

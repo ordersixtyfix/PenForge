@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 document.getElementById('email').textContent = userDto.email;
                 const profileImage = document.getElementById('profile-pic');
                 const profileImage2 = document.getElementById('profile-pic2');
-                if (userDto.profileImage) {
-                    profileImage.src = userDto.profileImage;
-                    profileImage2.src = userDto.profileImage;
-
+                if (userDto.profilePictureUrl) {
+                    const imageUrl = `http://localhost:8888/api/v1/files/${userDto.profilePictureUrl}`;
+                    profileImage.src = imageUrl;
+                    profileImage2.src = imageUrl;
                 }
             }
         } catch (e) {
@@ -26,28 +26,41 @@ document.addEventListener('DOMContentLoaded', (event) => {
     } else {
         console.log('Kullanıcı bilgileri bulunamadı');
     }
-
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('profile-upload').addEventListener('change', function (event) {
+    document.getElementById('profile-upload').addEventListener('change', async function (event) {
         const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                document.querySelector('.profile-pic').src = e.target.result;
-                const userDtoString = localStorage.getItem('userDto');
-                if (userDtoString) {
-                    try {
-                        const userDto = JSON.parse(userDtoString);
-                        userDto.profileImage = e.target.result;
-                        localStorage.setItem('userDto', JSON.stringify(userDto));
-                    } catch (e) {
-                        console.error('Invalid JSON in local storage:', e);
+            const formData = new FormData();
+            formData.append('profilePicture', file);
+
+            const userDtoString = localStorage.getItem('userDto');
+            if (userDtoString) {
+                const userDto = JSON.parse(userDtoString);
+                const userId = userDto.id;
+
+                try {
+                    const response = await fetch(`http://localhost:8888/api/v1/files/update-profile-picture/${userId}`, {
+                        method: 'PUT',
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        const updatedUser = await response.json();
+                        localStorage.setItem('userDto', JSON.stringify(updatedUser));
+                        const imageUrl = `http://localhost:8888/api/v1/files/${updatedUser.profilePictureUrl}`;
+                        document.getElementById('profile-pic').src = imageUrl;
+                        document.getElementById('profile-pic2').src = imageUrl;
+                        showAlert("Profil resmi başarıyla güncellendi!");
+                    } else {
+                        showAlert("Profil resmi güncellenemedi. Lütfen tekrar deneyin.");
                     }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showAlert("Bir hata oluştu. Lütfen tekrar deneyin.");
                 }
             }
-            reader.readAsDataURL(file);
         }
     });
 
@@ -59,14 +72,33 @@ window.addEventListener("DOMContentLoaded", () => {
         editButton.style.display = isVisible ? 'inline-block' : 'none';
     });
 
-    document.getElementById('confirm-email').addEventListener('click', function () {
+    document.getElementById('confirm-email').addEventListener('click', async function () {
         const newEmail = document.getElementById('new-email').value;
         if (newEmail) {
-            document.getElementById('email').innerText = newEmail;
-            document.getElementById('email-edit').style.display = 'none';
-            document.getElementById('edit-email').style.display = 'inline-block';
+            const userDtoString = localStorage.getItem('userDto');
+            if (userDtoString) {
+                const userDto = JSON.parse(userDtoString);
+                userDto.email = newEmail;
 
-            showAlert("E-mail adresiniz başarıyla değiştirildi.");
+                try {
+                    const response = await fetch(`http://localhost:8888/api/forgot-password/update-email?userId=${userDto.id}&newEmail=${newEmail}`, {
+                        method: 'PUT',
+                    });
+
+                    if (response.ok) {
+                        localStorage.setItem('userDto', JSON.stringify(userDto));
+                        document.getElementById('email').innerText = newEmail;
+                        document.getElementById('email-edit').style.display = 'none';
+                        document.getElementById('edit-email').style.display = 'inline-block';
+                        showAlert("E-mail adresiniz başarıyla değiştirildi.");
+                    } else {
+                        showAlert("E-mail adresiniz değiştirilemedi. Lütfen tekrar deneyin.");
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showAlert("Bir hata oluştu. Lütfen tekrar deneyin.");
+                }
+            }
         }
     });
 
@@ -78,14 +110,31 @@ window.addEventListener("DOMContentLoaded", () => {
         editButton.style.display = isVisible ? 'inline-block' : 'none';
     });
 
-    document.getElementById('confirm-password').addEventListener('click', function () {
+    document.getElementById('confirm-password').addEventListener('click', async function () {
         const newPassword = document.getElementById('new-password').value;
         if (newPassword) {
-            document.getElementById('password').innerText = '**********';
-            document.getElementById('password-edit').style.display = 'none';
-            document.getElementById('edit-password').style.display = 'inline-block';
+            const userDtoString = localStorage.getItem('userDto');
+            if (userDtoString) {
+                const userDto = JSON.parse(userDtoString);
 
-            showAlert("Şifreniz başarıyla değiştirildi.");
+                try {
+                    const response = await fetch(`http://localhost:8888/api/forgot-password/update-password?userId=${userDto.id}&newPassword=${newPassword}`, {
+                        method: 'PUT',
+                    });
+
+                    if (response.ok) {
+                        document.getElementById('password').innerText = '**********';
+                        document.getElementById('password-edit').style.display = 'none';
+                        document.getElementById('edit-password').style.display = 'inline-block';
+                        showAlert("Şifreniz başarıyla değiştirildi.");
+                    } else {
+                        showAlert("Şifreniz değiştirilemedi. Lütfen tekrar deneyin.");
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showAlert("Bir hata oluştu. Lütfen tekrar deneyin.");
+                }
+            }
         }
     });
 

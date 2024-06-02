@@ -59,24 +59,24 @@
     <div class="metrics">
         <div class="metric-item">
             <span class="metric-label">Toplam Hedef</span>
-            <span class="metric-number">15</span>
+            <span class="metric-number" id="totalTargets">15</span>
         </div>
         <div class="metric-item">
             <span class="metric-label">Zaafiyetli Hedef</span>
-            <span class="metric-number">10</span>
+            <span class="metric-number" id="vulnerableTargets">10</span>
         </div>
         <div class="metric-item">
             <span class="metric-label">Toplam Açık Port</span>
-            <span class="metric-number">60</span>
+            <span class="metric-number" id="totalOpenPorts">60</span>
         </div>
         <div class="metric-item">
             <span class="metric-label">Toplam Test</span>
-            <span class="metric-number">30</span>
+            <span class="metric-number" id="totalTests">30</span>
         </div>
     </div>
     <div class="charts-section">
         <div class="chart-item">
-            <h3>Zaafiyetli Portların Dağılımı</h3>
+            <h3>Açık Portların Dağılımı</h3>
             <div class="chart" id="vulnerability-port-distribution-chart">
                 <canvas id="vulnerabilityPortDistributionChart"></canvas>
             </div>
@@ -98,7 +98,7 @@
                     <th>Durum</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="ipTableBody">
                 <!-- Table rows will be added dynamically using JavaScript -->
                 </tbody>
             </table>
