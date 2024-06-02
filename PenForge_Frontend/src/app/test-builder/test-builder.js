@@ -20,11 +20,11 @@ class DragAndDropManager {
             { id: 'Shodan', name: 'Shodan', tooltip: 'Shodan is a search engine for Internet-connected devices.', color: COLORS.GREEN, position: 2 },
             { id: 'Amass', name: 'Amass', tooltip: 'Amass is a tool for in-depth DNS enumeration.', color: COLORS.GREEN, position: 3 },
             { id: 'Nikto', name: 'Nikto', tooltip: 'Nikto is a web server vulnerability scanner.', color: COLORS.YELLOW, position: 4 },
-            { id: 'WPScan', name: 'WPScan', tooltip: 'WPScan is a WordPress vulnerability scanner.', color: COLORS.YELLOW, position: 5 },
-            { id: 'Burp Suite', name: 'Burp Suite', tooltip: 'Burp Suite is a web vulnerability scanner and testing tool.', color: COLORS.YELLOW, position: 6 },
-            { id: 'Enum4linux', name: 'Enum4linux', tooltip: 'Enum4linux is a Linux tool for enumerating information from Windows and Samba systems.', color: COLORS.YELLOW, position: 7 },
-            { id: 'SMBMap', name: 'SMBMap', tooltip: 'SMBMap is a tool for assessing the security of SMB shares.', color: COLORS.YELLOW, position: 8 },
-            { id: 'SNMPWalk', name: 'SNMPWalk', tooltip: 'SNMPWalk is a tool for querying network devices via SNMP.', color: COLORS.RED, position: 9 },
+            { id: 'Burp Suite', name: 'Burp Suite', tooltip: 'Burp Suite is a web vulnerability scanner and testing tool.', color: COLORS.YELLOW, position: 5 },
+            { id: 'Enum4linux', name: 'Enum4linux', tooltip: 'Enum4linux is a Linux tool for enumerating information from Windows and Samba systems.', color: COLORS.YELLOW, position: 6 },
+            { id: 'SMBMap', name: 'SMBMap', tooltip: 'SMBMap is a tool for assessing the security of SMB shares.', color: COLORS.YELLOW, position: 7 },
+            { id: 'SNMPWalk', name: 'SNMPWalk', tooltip: 'SNMPWalk is a tool for querying network devices via SNMP.', color: COLORS.RED, position: 8 },
+            { id: 'WPScan', name: 'WPScan', tooltip: 'WPScan is a WordPress vulnerability scanner.', color: COLORS.RED, position: 9 },
             { id: 'Metasploit Framework', name: 'Metasploit Framework', tooltip: 'Metasploit Framework is a tool for developing and executing exploit code against a remote target machine.', color: COLORS.RED, position: 10 },
             { id: 'SQLMap', name: 'SQLMap', tooltip: 'SQLMap is a tool for automating the detection and exploitation of SQL injection flaws.', color: COLORS.RED, position: 11 },
             { id: 'Hydra', name: 'Hydra', tooltip: 'Hydra is a parallelized login cracker which supports numerous protocols to attack.', color: COLORS.RED, position: 12 },
@@ -45,6 +45,10 @@ class DragAndDropManager {
             {
                 name: "BindShell Access Template",
                 tools: ['Amass', '', 'Netcat']
+            },
+            {
+                name: "WordPress Brute Force Attack Template",
+                tools: ['Nmap', '', 'WPScan']
             }
         ];
         this.selectedTemplate = null;
@@ -504,6 +508,7 @@ class DragAndDropManager {
     }
 
 
+
     startAttack() {
         const ipInput = document.getElementById('target-ip');
         const ipValue = ipInput.value.trim();
@@ -511,9 +516,12 @@ class DragAndDropManager {
         if (ipValue === '') {
             this.showAlert("Lütfen bir IP adresi girin.");
         } else {
-            const tools = this.getToolsFromCategories();
+            let tools = [];
+            if (!this.selectedTemplate) {
+                tools = this.getToolsFromCategories();
+            }
 
-            if (tools.length === 0) {
+            if (tools.length === 0 && !this.selectedTemplate) {
                 this.showAlert("Kategorilerde hiç araç bulunamadı. Lütfen bir araç ekleyin.");
             } else {
                 const loadingIcon = document.getElementById('loading');
@@ -531,6 +539,9 @@ class DragAndDropManager {
                     case "BindShell Access Template":
                         templateKey = "bindShellAccess";
                         break;
+                    case "WordPress Brute Force Attack Template":
+                        templateKey = "wpAttack";
+                        break;
                     default:
                         templateKey = "";
                         break;
@@ -542,8 +553,12 @@ class DragAndDropManager {
                 const jsonData = {
                     userId: userId,
                     targetIP: ipValue,
-                    pentestScenario: templateKey
+                    pentestScenario: templateKey,
                 };
+
+                if (tools.length > 0) {
+                    jsonData.tools = tools; // Araç bilgilerini isteğe ekliyoruz
+                }
 
                 const url = 'http://localhost:8888/api/v1/pentest-templates';
 
@@ -592,6 +607,8 @@ class DragAndDropManager {
             }
         }
     }
+
+
 
 
 
