@@ -92,7 +92,7 @@
     <p><strong>Hedef Servis:</strong> <span th:text="${pentestReport.targetService}">N/A</span></p>
     <p><strong>Hedef Port:</strong> <span th:text="${pentestReport.targetPort}">N/A</span></p>
     <p><strong>Test Tarihi:</strong> <span th:text="${formattedScanDate}">N/A</span></p>
-    <p><strong>Shell Erişimi:</strong> <span th:text="${pentestReport.shellAccess ? 'Olumlu' : 'Olumsuz'}">N/A</span></p>
+    <p><strong>Shell Erisimi:</strong> <span th:text="${pentestReport.shellAccess ? 'Olumlu' : 'Olumsuz'}">N/A</span></p>
 
 
     <div th:if="${pentestReport.credentials != null and not #lists.isEmpty(pentestReport.credentials)}">
