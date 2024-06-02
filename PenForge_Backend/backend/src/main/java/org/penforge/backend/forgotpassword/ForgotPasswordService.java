@@ -60,4 +60,25 @@ public class ForgotPasswordService {
         }
         return false;
     }
+    public boolean updatePassword(String userId, String newPassword) {
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            user.setPassword(bCryptPasswordEncoder.encode(newPassword));
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateEmail(String userId, String newEmail) {
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            user.setEmail(newEmail);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
 }

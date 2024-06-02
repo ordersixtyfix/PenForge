@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.penforge.backend.common.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.penforge.backend.user.*;
 
 @RestController
 @RequestMapping("/api/forgot-password")
@@ -35,5 +36,20 @@ public class ForgotPasswordController {
         return new GenericResponse<String>()
                 .setCode(result ? 200 : 400)
                 .setData(result ? "Password reset successful" : "Invalid token");
+    }
+    @PutMapping("/update-password")
+    public GenericResponse<String> updatePassword(@RequestParam String userId, @RequestParam String newPassword) {
+        boolean result = forgotPasswordService.updatePassword(userId, newPassword);
+        return new GenericResponse<String>()
+                .setCode(result ? 200 : 400)
+                .setData(result ? "Password update successful" : "User not found");
+    }
+
+    @PutMapping("/update-email")
+    public GenericResponse<String> updateEmail(@RequestParam String userId, @RequestParam String newEmail) {
+        boolean result = forgotPasswordService.updateEmail(userId, newEmail);
+        return new GenericResponse<String>()
+                .setCode(result ? 200 : 400)
+                .setData(result ? "Email update successful" : "User not found");
     }
 }
