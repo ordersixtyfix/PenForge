@@ -74,30 +74,35 @@ window.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById('confirm-email').addEventListener('click', async function () {
         const newEmail = document.getElementById('new-email').value;
-        if (newEmail) {
-            const userDtoString = localStorage.getItem('userDto');
-            if (userDtoString) {
-                const userDto = JSON.parse(userDtoString);
-                userDto.email = newEmail;
+        const confirmNewEmail = document.getElementById('confirm-new-email').value;
+        if (newEmail && confirmNewEmail) {
+            if (newEmail === confirmNewEmail) {
+                const userDtoString = localStorage.getItem('userDto');
+                if (userDtoString) {
+                    const userDto = JSON.parse(userDtoString);
+                    userDto.email = newEmail;
 
-                try {
-                    const response = await fetch(`http://localhost:8888/api/forgot-password/update-email?userId=${userDto.id}&newEmail=${newEmail}`, {
-                        method: 'PUT',
-                    });
+                    try {
+                        const response = await fetch(`http://localhost:8888/api/forgot-password/update-email?userId=${userDto.id}&newEmail=${newEmail}`, {
+                            method: 'PUT',
+                        });
 
-                    if (response.ok) {
-                        localStorage.setItem('userDto', JSON.stringify(userDto));
-                        document.getElementById('email').innerText = newEmail;
-                        document.getElementById('email-edit').style.display = 'none';
-                        document.getElementById('edit-email').style.display = 'inline-block';
-                        showAlert("E-mail adresiniz başarıyla değiştirildi.");
-                    } else {
-                        showAlert("E-mail adresiniz değiştirilemedi. Lütfen tekrar deneyin.");
+                        if (response.ok) {
+                            localStorage.setItem('userDto', JSON.stringify(userDto));
+                            document.getElementById('email').innerText = newEmail;
+                            document.getElementById('email-edit').style.display = 'none';
+                            document.getElementById('edit-email').style.display = 'inline-block';
+                            showAlert("E-mail adresiniz başarıyla değiştirildi.");
+                        } else {
+                            showAlert("E-mail adresiniz değiştirilemedi. Lütfen tekrar deneyin.");
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        showAlert("Bir hata oluştu. Lütfen tekrar deneyin.");
                     }
-                } catch (error) {
-                    console.error('Error:', error);
-                    showAlert("Bir hata oluştu. Lütfen tekrar deneyin.");
                 }
+            } else {
+                showAlert("E-posta adresleri eşleşmiyor. Lütfen tekrar kontrol edin.");
             }
         }
     });
@@ -112,57 +117,47 @@ window.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById('confirm-password').addEventListener('click', async function () {
         const newPassword = document.getElementById('new-password').value;
-        if (newPassword) {
-            const userDtoString = localStorage.getItem('userDto');
-            if (userDtoString) {
-                const userDto = JSON.parse(userDtoString);
+        const confirmNewPassword = document.getElementById('confirm-new-password').value;
+        if (newPassword && confirmNewPassword) {
+            if (newPassword === confirmNewPassword) {
+                const userDtoString = localStorage.getItem('userDto');
+                if (userDtoString) {
+                    const userDto = JSON.parse(userDtoString);
 
-                try {
-                    const response = await fetch(`http://localhost:8888/api/forgot-password/update-password?userId=${userDto.id}&newPassword=${newPassword}`, {
-                        method: 'PUT',
-                    });
+                    try {
+                        const response = await fetch(`http://localhost:8888/api/forgot-password/update-password?userId=${userDto.id}&newPassword=${newPassword}`, {
+                            method: 'PUT',
+                        });
 
-                    if (response.ok) {
-                        document.getElementById('password').innerText = '**********';
-                        document.getElementById('password-edit').style.display = 'none';
-                        document.getElementById('edit-password').style.display = 'inline-block';
-                        showAlert("Şifreniz başarıyla değiştirildi.");
-                    } else {
-                        showAlert("Şifreniz değiştirilemedi. Lütfen tekrar deneyin.");
+                        if (response.ok) {
+                            document.getElementById('password-edit').style.display = 'none';
+                            document.getElementById('edit-password').style.display = 'inline-block';
+                            showAlert("Şifreniz başarıyla değiştirildi.");
+                        } else {
+                            showAlert("Şifreniz değiştirilemedi. Lütfen tekrar deneyin.");
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        showAlert("Bir hata oluştu. Lütfen tekrar deneyin.");
                     }
-                } catch (error) {
-                    console.error('Error:', error);
-                    showAlert("Bir hata oluştu. Lütfen tekrar deneyin.");
                 }
+            } else {
+                showAlert("Şifreler eşleşmiyor. Lütfen tekrar kontrol edin.");
             }
-        }
-    });
-
-    document.addEventListener('click', function (event) {
-        const emailEditSection = document.getElementById('email-edit');
-        const emailEditButton = document.getElementById('edit-email');
-        if (emailEditSection.style.display === 'block' && !emailEditSection.contains(event.target) && !emailEditButton.contains(event.target)) {
-            emailEditSection.style.display = 'none';
-            emailEditButton.style.display = 'inline-block';
-        }
-
-        const passwordEditSection = document.getElementById('password-edit');
-        const passwordEditButton = document.getElementById('edit-password');
-        if (passwordEditSection.style.display === 'block' && !passwordEditSection.contains(event.target) && !passwordEditButton.contains(event.target)) {
-            passwordEditSection.style.display = 'none';
-            passwordEditButton.style.display = 'inline-block';
         }
     });
 });
 
-function closeAlert() {
-    document.getElementById('custom-alert').classList.add('hide-visibility');
+function showAlert(message) {
+    const customAlert = document.getElementById('custom-alert');
+    const alertMessage = document.getElementById('custom-alert-message');
+    alertMessage.textContent = message;
+    customAlert.classList.remove('hide-visibility');
+    customAlert.classList.add('show-visibility');
 }
 
-function showAlert(message) {
-    const alertElement = document.getElementById('custom-alert');
-    const messageElement = document.getElementById('custom-alert-message');
-
-    messageElement.innerHTML = message;
-    alertElement.classList.remove('hide-visibility');
+function closeAlert() {
+    const customAlert = document.getElementById('custom-alert');
+    customAlert.classList.remove('show-visibility');
+    customAlert.classList.add('hide-visibility');
 }

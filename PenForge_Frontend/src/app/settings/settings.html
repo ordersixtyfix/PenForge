@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,6 @@
     <title>PenForge - Ayarlar</title>
     <link rel="stylesheet" href="settings.css">
 </head>
-
 <body>
 <div class="sidebar">
     <div class="profile" id="profile-container">
@@ -64,6 +62,7 @@
                 <button id="edit-email">Düzenle</button>
                 <div id="email-edit" class="edit-section" style="display: none;">
                     <input type="email" id="new-email" placeholder="Yeni e-posta">
+                    <input type="email" id="confirm-new-email" placeholder="Yeni e-postayı tekrar girin">
                     <button id="confirm-email">Onayla</button>
                 </div>
             </div>
@@ -73,6 +72,7 @@
                 <button id="edit-password">Şifre değiştir</button>
                 <div id="password-edit" class="edit-section" style="display: none;">
                     <input type="password" id="new-password" placeholder="Yeni şifre">
+                    <input type="password" id="confirm-new-password" placeholder="Yeni şifreyi tekrar girin">
                     <button id="confirm-password">Onayla</button>
                 </div>
             </div>
@@ -85,8 +85,6 @@
         </div>
     </div>
 </div>
-
 <script src="settings.js"></script>
 </body>
-
 </html>
