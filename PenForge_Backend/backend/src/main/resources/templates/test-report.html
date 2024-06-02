@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8" />
     <title>Test Raporu</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0px;
             background-color: #f0f4f8;
             color: #333;
         }
@@ -23,7 +24,7 @@
             border-radius: 8px;
             background-color: #ffffff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            page-break-inside: avoid; /* Prevent page break inside */
+            page-break-inside: avoid; /* Sayfa kesmesini önle */
         }
 
         .data-set p {
@@ -79,42 +80,43 @@
         }
 
         .avoid-page-break {
-            page-break-inside: avoid; /* Prevent page break inside */
+            page-break-inside: avoid; /* Sayfa kesmesini önle */
         }
     </style>
 </head>
 <body>
-<h1>Scan Report</h1>
+<h1>Test Raporu</h1>
 
 <div class="data-set avoid-page-break">
-    <p><strong>IP Addresi:</strong> <span th:text="${pentestReport.targetIP}">N/A</span></p>
-    <p><strong>Servis:</strong> <span th:text="${pentestReport.targetService}">N/A</span></p>
-    <p><strong>Port:</strong> <span th:text="${pentestReport.targetPort}">N/A</span></p>
-    <p><strong>Tarama Tarihi:</strong> <span th:text="${pentestReport.scanDate}">N/A</span></p>
-    <p><strong>Root Shell Access:</strong> <span th:text="${pentestReport.rootShellAccess ? 'Yes' : 'No'}">N/A</span></p>
+    <p><strong>IP Adresi:</strong> <span th:text="${pentestReport.targetIP}">N/A</span></p>
+    <p><strong>Hedef Servis:</strong> <span th:text="${pentestReport.targetService}">N/A</span></p>
+    <p><strong>Hedef Port:</strong> <span th:text="${pentestReport.targetPort}">N/A</span></p>
+    <p><strong>Test Tarihi:</strong> <span th:text="${formattedScanDate}">N/A</span></p>
 
     <div th:if="${pentestReport.credentials != null and not #lists.isEmpty(pentestReport.credentials)}">
-        <h2 class="section-title">Credentials</h2>
+        <h2 class="section-title">Giris Bilgileri</h2>
         <table class="highlight">
             <tr>
-                <th>Username</th>
-                <th>Password</th>
+                <th>Neye Ait?</th>
+                <th>Kullanici Adi</th>
+                <th>Sifre</th>
             </tr>
             <tr th:each="cred : ${pentestReport.credentials}">
+                <td th:text="${cred.credentialsFor}">N/A</td>
                 <td th:text="${cred.username}">N/A</td>
                 <td th:text="${cred.password}">N/A</td>
             </tr>
         </table>
     </div>
-    <p th:unless="${pentestReport.credentials != null and not #lists.isEmpty(pentestReport.credentials)}">No credentials available.</p>
+    <p th:unless="${pentestReport.credentials != null and not #lists.isEmpty(pentestReport.credentials)}">Giris Bilgisi Bulunamadi.</p>
 
     <div th:if="${pentestReport.portData != null and not #lists.isEmpty(pentestReport.portData)}">
-        <h2 class="section-title">Port Data</h2>
+        <h2 class="section-title">Port Bilgisi</h2>
         <table class="highlight">
             <tr>
                 <th>Port</th>
-                <th>State</th>
-                <th>Service</th>
+                <th>Durum</th>
+                <th>Servis</th>
             </tr>
             <tr th:each="port : ${pentestReport.portData}">
                 <td th:text="${port.port}">N/A</td>
@@ -123,7 +125,7 @@
             </tr>
         </table>
     </div>
-    <p th:unless="${pentestReport.portData != null and not #lists.isEmpty(pentestReport.portData)}">No port data available.</p>
+    <p th:unless="${pentestReport.portData != null and not #lists.isEmpty(pentestReport.portData)}">Port Bilgisi Bulunmamaktadır.</p>
 
 </div>
 

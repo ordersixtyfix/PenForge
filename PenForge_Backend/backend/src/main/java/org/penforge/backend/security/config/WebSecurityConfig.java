@@ -87,6 +87,7 @@ public class WebSecurityConfig {
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/pentest-templates")).permitAll();
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/files/**")).permitAll();
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/statistics/**")).permitAll();
+                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/past-reports/**")).permitAll();
 
 
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/report-generate")).permitAll();
