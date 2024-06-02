@@ -74,4 +74,12 @@ public class UserService implements UserDetailsService {
                 .profilePictureUrl(user.get().getProfilePictureUrl())
                 .build();
     }
+    public User getUserById(String id) {
+        return userRepository.findById(id).orElseThrow(() -> new IllegalStateException("User not found"));
+    }
+
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
+
 }

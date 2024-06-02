@@ -31,6 +31,11 @@ body {
     height: 70px;
     border-radius: 50%;
     margin-bottom: 10px;
+    transition: transform 0.3s;
+}
+
+.profile-pic:hover {
+    transform: scale(1.1);
 }
 
 .navigation {
@@ -164,17 +169,16 @@ body {
 
 /* Table styles */
 .scan-table {
-    width: 90%; /* Make the table slightly narrower */
+    width: 90%;
     border-collapse: collapse;
-    margin: 20px auto; /* Center the table and add top margin */
+    margin: 20px auto;
     overflow-x: auto;
-    font-size: 14px; /* Make the text slightly smaller */
+    font-size: 14px;
 }
-
 
 .scan-table th, .scan-table td {
     border: 1px solid #35515E;
-    padding: 6px; /* Reduce padding for smaller cells */
+    padding: 6px;
     text-align: left;
 }
 
@@ -200,11 +204,6 @@ body {
     display: inline-block;
 }
 
-
-.activities-item h5, .notifications-item h5 {
-    margin-top: 0;
-}
-
 /* View All Link */
 .view-all-link {
     margin-top: 15px;
@@ -216,4 +215,3 @@ body {
 .view-all-link:hover {
     text-decoration: underline;
 }
-
