@@ -12,5 +12,7 @@ public class StatisticsData{
     private int totalOpenPorts;
     private int totalTests;
 
+    private PortStatus portStatus;
+    private OpenPorts openPorts;
 
 }

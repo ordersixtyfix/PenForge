@@ -5,7 +5,12 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class VulnerablePorts {
+public class PortStatus {
+
+    private int closed;
+    private int filtered;
+    private int open;
+
 
 
 
